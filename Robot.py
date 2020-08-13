@@ -13,6 +13,7 @@ class Robot:
         self.rightMotor = Motor(Port.C)
         self.leftTopMotor = Motor(Port.A)
         self.rightTopMotor = Motor(Port.D)
+        self.minSpeed = 30.
         self.gyro = GyroSensor(Port.S4)
         self.wheelRadiusCm = 4.0
         self.gyroGain = 0.7
@@ -57,3 +58,33 @@ class Robot:
             rotation_angle = self.rightMotor.angle()
         self.rightMotor.stop()
         self.leftMotor.stop()
+
+    def spinRightToAngle(self, speed, targetAngle):
+        gyroAngle = self.gyro.angle()
+        startingAngle = gyroAngle
+        while gyroAngle < targetAngle:
+            gyroAngle = self.gyro.angle()
+            scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
+            rampSpeed = speed * (1 - scale)
+            rampSpeed = max(rampSpeed, self.minSpeed)
+            self.rightMotor.run(-rampSpeed)
+            self.leftMotor.run(rampSpeed)
+            print(scale)
+            print(gyroAngle)
+        self.rightMotor.stop(Stop.BRAKE)
+        self.leftMotor.stop(Stop.BRAKE)
+
+    def spinLeftToAngle(self, speed, targetAngle):
+        gyroAngle = self.gyro.angle()
+        startingAngle = gyroAngle
+        while gyroAngle > targetAngle:
+            gyroAngle = self.gyro.angle()
+            scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
+            rampSpeed = speed * (1 - scale)
+            rampSpeed = max(rampSpeed, self.minSpeed)
+            self.rightMotor.run(rampSpeed)
+            self.leftMotor.run(-rampSpeed)
+            print(scale)
+            print(gyroAngle)
+        self.rightMotor.stop(Stop.BRAKE)
+        self.leftMotor.stop(Stop.BRAKE)

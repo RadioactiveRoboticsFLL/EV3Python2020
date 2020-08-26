@@ -13,7 +13,10 @@ class Robot:
         self.rightMotor = Motor(Port.C)
         self.leftTopMotor = Motor(Port.A)
         self.rightTopMotor = Motor(Port.D)
+        self.minSpeed = 30.
+        self.gyro = GyroSensor(Port.S4)
         self.wheelRadiusCm = 4.0
+        self.gyroGain = 0.7
 
     def runTopMotors(self, speed, rotation_angle):
         self.leftTopMotor.run_angle(-speed,rotation_angle,Stop.COAST,False)
@@ -41,3 +44,47 @@ class Robot:
         #convert cm to degrees
         degrees = self.cms2degrees(cms)
         self.driveForward(speed, degrees)
+    
+    def driveStraightCms(self, speed, cms):
+        degreesTarget = self.cms2degrees(cms)
+        intialGyroAngle = self.gyro.angle()
+        rotation_angle = self.rightMotor.angle()
+        while rotation_angle < degreesTarget:
+            gyroAngle = self.gyro.angle()
+            error = gyroAngle - intialGyroAngle
+            correction = error * self.gyroGain
+            self.rightMotor.run(speed + correction)
+            self.leftMotor.run(speed - correction)
+            rotation_angle = self.rightMotor.angle()
+        self.rightMotor.stop()
+        self.leftMotor.stop()
+
+    def spinRightToAngle(self, speed, targetAngle):
+        gyroAngle = self.gyro.angle()
+        startingAngle = gyroAngle
+        while gyroAngle < targetAngle:
+            gyroAngle = self.gyro.angle()
+            scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
+            rampSpeed = speed * (1 - scale)
+            rampSpeed = max(rampSpeed, self.minSpeed)
+            self.rightMotor.run(-rampSpeed)
+            self.leftMotor.run(rampSpeed)
+            print(scale)
+            print(gyroAngle)
+        self.rightMotor.stop(Stop.BRAKE)
+        self.leftMotor.stop(Stop.BRAKE)
+
+    def spinLeftToAngle(self, speed, targetAngle):
+        gyroAngle = self.gyro.angle()
+        startingAngle = gyroAngle
+        while gyroAngle > targetAngle:
+            gyroAngle = self.gyro.angle()
+            scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
+            rampSpeed = speed * (1 - scale)
+            rampSpeed = max(rampSpeed, self.minSpeed)
+            self.rightMotor.run(rampSpeed)
+            self.leftMotor.run(-rampSpeed)
+            print(scale)
+            print(gyroAngle)
+        self.rightMotor.stop(Stop.BRAKE)
+        self.leftMotor.stop(Stop.BRAKE)

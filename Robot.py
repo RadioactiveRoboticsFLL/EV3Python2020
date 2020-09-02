@@ -13,10 +13,11 @@ class Robot:
         self.rightMotor = Motor(Port.C)
         self.leftTopMotor = Motor(Port.A)
         self.rightTopMotor = Motor(Port.D)
-        self.minSpeed = 30.
+        self.minSpeed = 60.
         self.gyro = GyroSensor(Port.S4)
         self.wheelRadiusCm = 4.0
         self.gyroGain = 0.7
+        self.rampDownRatio = 0.5
 
     def runTopMotors(self, speed, rotation_angle):
         "Turns on top motors in opposite directions for as many degrees as you tell it"
@@ -61,20 +62,27 @@ class Robot:
         # TBF: get the robot to slow down as it
         # gets close to it's destination
         while rotation_angle < degreesTarget:
+            # get the latest value that the gyro sensor is reading
             gyroAngle = self.gyro.angle()
             error = gyroAngle - intialGyroAngle
             # this is the correction to each motor to 
             # keep the robot going straight
             correction = error * self.gyroGain
+
             # ramp down the speed as we get close to our destination!
             ratio = rotation_angle / degreesTarget
-            if ratio < 0.5:
+            if ratio < self.rampDownRatio:
                 # go at a constant speed
                 rampSpeed = speed
             else:
                 # RAMP down speed!
-                scale = 1 - ratio
+                scale = (1 - ratio) / (1 - self.rampDownRatio)
                 rampSpeed = speed * scale
+
+            # make sure we never slow down so much that the robot
+            # can't make it's destination    
+            rampSpeed = max(rampSpeed, self.minSpeed)
+            #print(rampSeed)
 
             self.rightMotor.run(rampSpeed + correction)
             self.leftMotor.run(rampSpeed - correction)

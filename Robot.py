@@ -58,14 +58,26 @@ class Robot:
         degreesTarget = self.cms2degrees(cms)
         intialGyroAngle = self.gyro.angle()
         rotation_angle = self.rightMotor.angle()
-        # TBD: get the robot to slow down as it
+        # TBF: get the robot to slow down as it
         # gets close to it's destination
         while rotation_angle < degreesTarget:
             gyroAngle = self.gyro.angle()
             error = gyroAngle - intialGyroAngle
+            # this is the correction to each motor to 
+            # keep the robot going straight
             correction = error * self.gyroGain
-            self.rightMotor.run(speed + correction)
-            self.leftMotor.run(speed - correction)
+            # ramp down the speed as we get close to our destination!
+            ratio = rotation_angle / degreesTarget
+            if ratio < 0.5:
+                # go at a constant speed
+                rampSpeed = speed
+            else:
+                # RAMP down speed!
+                scale = 1 - ratio
+                rampSpeed = speed * scale
+
+            self.rightMotor.run(rampSpeed + correction)
+            self.leftMotor.run(rampSpeed - correction)
             rotation_angle = self.rightMotor.angle()
         self.rightMotor.stop()
         self.leftMotor.stop()

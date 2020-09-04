@@ -56,6 +56,9 @@ class Robot:
     
     def driveStraightCms(self, speed, cms):
         "drives straight with gyro sensor, however many cms you tell it"
+        # resets both motor angles
+        self.leftMotor.reset_angle(0)
+        self.rightMotor.reset_angle(0)
         degreesTarget = self.cms2degrees(cms)
         intialGyroAngle = self.gyro.angle()
         rotation_angle = self.rightMotor.angle()
@@ -107,7 +110,9 @@ class Robot:
             print(gyroAngle)
         self.rightMotor.stop(Stop.BRAKE)
         self.leftMotor.stop(Stop.BRAKE)
-
+        brick.display.text("last angle:")
+        brick.display.text(gyroAngle)
+        
     def spinLeftToAngle(self, speed, targetAngle):
         "spins left until gyro reads the angle that you tell it"
         gyroAngle = self.gyro.angle()
@@ -123,3 +128,5 @@ class Robot:
             print(gyroAngle)
         self.rightMotor.stop(Stop.BRAKE)
         self.leftMotor.stop(Stop.BRAKE)
+        brick.display.text("last angle:")
+        brick.display.text(gyroAngle)

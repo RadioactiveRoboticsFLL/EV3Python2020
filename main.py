@@ -11,7 +11,7 @@ from pybricks.tools import wait, print
 # our imports
 from motion import driveForward,spinRight,spinLeft
 from Robot import Robot
-from launches import pullUpBar
+from launches import pullUpBar, bocciBench
 from motorControl import motorControl
 
 r = Robot()
@@ -28,11 +28,14 @@ while True:
         if btn == Button.LEFT:
             motorControl()
         elif btn == Button.RIGHT:
-            pullUpBar()
+            # pullUpBar()
+            r.driveStraightCms(500, 100)
         elif btn == Button.UP:    
             r.runTopMotors(500, 6*360)
         elif btn == Button.DOWN:
             r.runTopMotors(-500, 6*360)
+        elif btn == Button.CENTER:
+            bocciBench()
 
     btns = brick.buttons()
 

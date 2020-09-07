@@ -130,3 +130,28 @@ class Robot:
         self.leftMotor.stop(Stop.BRAKE)
         brick.display.text("last angle:")
         brick.display.text(gyroAngle)
+
+    def gyroDriftCheck(self):
+        # get all the buttons that are currently pressed
+        leftButtonPressed = False
+        while not leftButtonPressed:
+            btns = brick.buttons()
+            if len(btns) == 1:
+                btn = btns[0]
+                leftButtonPressed = btn == Button.LEFT
+            angleDeGyro = self.gyro.angle()
+            brick.display.clear()
+            brick.display.text(angleDeGyro)
+            wait(50)
+        wait(1000)
+        leftButtonPressed = False
+        while not leftButtonPressed:
+            btns = brick.buttons()
+            if len(btns) == 1:
+                btn = btns[0]
+                leftButtonPressed = btn == Button.LEFT
+            # angleDeGyro = self.gyro.angle()
+            brick.display.clear()
+            brick.display.text("Hardware Calibrate?")
+            wait(50)
+        brick.display.clear()

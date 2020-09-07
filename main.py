@@ -18,19 +18,21 @@ from launches import treadmill
 r = Robot()
 
 # do a quick menu
+r.gyroDriftCheck()
 btns = brick.buttons()
 
 brick.display.text("")
 brick.display.text("LEFT == motorControl")
 brick.display.text("RIGHT == pullUpBars")
+brick.display.text("CENTER == bocciBench")
 while True:
     if len(btns) == 1:
         btn = btns[0]
         if btn == Button.LEFT:
             motorControl()
         elif btn == Button.RIGHT:
-            # pullUpBar()
-            r.driveStraightCms(500, 100)
+            pullUpBar()
+            # r.driveStraightCms(500, 100)
         elif btn == Button.UP:    
             r.runTopMotors(500, 6*360)
         elif btn == Button.DOWN:

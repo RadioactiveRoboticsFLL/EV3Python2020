@@ -21,3 +21,11 @@ def bocciBench():
     # we have arrived at the bocci ball
     r.rightTopMotor.run_time(500, 1000)
     # r.rightTopMotor.run_time(-500, 1000)
+
+
+def treadmill():
+    r = Robot()
+    r.driveStraightCms(600, 172)
+    #onTopOfTreadmill!!!!!!!!
+    #turn on one (right) motor
+    r.rightMotor.run_time(256, 5000)

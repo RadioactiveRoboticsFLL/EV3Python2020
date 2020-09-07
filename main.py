@@ -13,6 +13,7 @@ from motion import driveForward,spinRight,spinLeft
 from Robot import Robot
 from launches import pullUpBar, bocciBench
 from motorControl import motorControl
+from launches import treadmill
 
 r = Robot()
 

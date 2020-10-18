@@ -8,7 +8,17 @@ This python code runs our EV3 robot in the FLL 2020-2021 robot game (Replay).
 
 ## Our Robot
 
+TBF: What should we say about the robot that's important to the code?
+
+<img src="./data/IMG_0261.jpg" alt="data/IMG_0261.jpg" width="500">
+
+<img src="./data/IMG_0262.JPG" alt="data/IMG_0262.JPG" width="500">
+
+<img src="./data/IMG_0263.JPG" alt="data/IMG_0263.JPG" width="500">
+
 ## The Code
+
+TBF: Explain how this code is organized
 
 ## Design Process
 
@@ -22,7 +32,15 @@ After taking a break because of the Covid pandemic, we then continued virtually 
 
 ### Process
 
+TBF: what was our process?
 
+### Innovations
+
+#### Ramping the Speed
+
+
+<img src="./data/speedRampDownBug.png" alt="data/speedRampDownBug.png" width="500">
+<img src="./data/speedRampDownFixed.png" alt="data/speedRampDownFixed.png" width="500">
    
 
 

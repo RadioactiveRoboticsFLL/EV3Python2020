@@ -25,7 +25,33 @@ def bocciBench():
 
 def treadmill():
     r = Robot()
-    r.driveStraightCms(600, 172)
+
+    # This v will get us on top, but we want to stop.
+    # r.driveStraightCms(600, 172)
+    r.driveStraightCms(600, 172 - 25)
+    r.driveForwardCms(600, 10)
     #onTopOfTreadmill!!!!!!!!
     #turn on one (right) motor
     r.rightMotor.run_time(256, 5000)
+    # Get off!!!
+    r.driveForwardCms(-600, 25)
+    # Straiten out!!
+    gyroAngle = r.gyro.angle()
+    if gyroAngle > 0:
+        r.spinLeftToAngle(100, 0)
+    else:
+        r.spinRightToAngle(100, 0)
+    # To Home!!!!!
+    # r.driveStraightCms(-650, 150) this does not work.
+    # to go backwards, just give it neg. power
+    r.driveForwardCms(-650, 150)
+
+def Bocci():
+    # This dumps Sabastion and heath units at bench.
+    r = Robot()
+    r.driveStraightCms(500, 30)
+    #DUMP!! Sabastion and the health units.
+    r.runTopMotors(500, 90)
+    # r.driveStraightCms(200, 5)
+    r.spinLeftToAngle(150, -90)
+    r.driveStraightCms(500, 40)

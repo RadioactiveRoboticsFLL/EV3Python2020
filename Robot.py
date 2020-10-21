@@ -14,6 +14,7 @@ class Robot:
         self.leftTopMotor = Motor(Port.A)
         self.rightTopMotor = Motor(Port.D)
         self.minSpeed = 60.
+        self.minSpinSpeed = 30.
         self.gyro = GyroSensor(Port.S4)
         self.wheelRadiusCm = 4.0
         self.gyroGain = 0.7
@@ -95,6 +96,8 @@ class Robot:
 
     def spinRightToAngle(self, speed, targetAngle):
         "spins right until gyro reads the angle that you tell it"
+        # compensate for overshoot?
+        # targetAngle = targetAngle + 1
         gyroAngle = self.gyro.angle()
         startingAngle = gyroAngle
         while gyroAngle < targetAngle:
@@ -103,7 +106,8 @@ class Robot:
             # but then as you get closer to your angle, you slow down
             scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
             rampSpeed = speed * (1 - scale)
-            rampSpeed = max(rampSpeed, self.minSpeed)
+            # make sure speed does not go to zero
+            rampSpeed = max(rampSpeed, self.minSpinSpeed)
             self.rightMotor.run(-rampSpeed)
             self.leftMotor.run(rampSpeed)
             print(scale)
@@ -115,13 +119,15 @@ class Robot:
         
     def spinLeftToAngle(self, speed, targetAngle):
         "spins left until gyro reads the angle that you tell it"
+        # compensate for overshoot?
+        # targetAngle = targetAngle - 1
         gyroAngle = self.gyro.angle()
         startingAngle = gyroAngle
         while gyroAngle > targetAngle:
             gyroAngle = self.gyro.angle()
             scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
             rampSpeed = speed * (1 - scale)
-            rampSpeed = max(rampSpeed, self.minSpeed)
+            rampSpeed = max(rampSpeed, self.minSpinSpeed)
             self.rightMotor.run(rampSpeed)
             self.leftMotor.run(-rampSpeed)
             print(scale)

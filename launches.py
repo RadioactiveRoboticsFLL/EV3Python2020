@@ -62,6 +62,25 @@ def Bocci():
     r.spinLeftToAngle(150, -90)
     r.driveStraightCms(500, 40)
 
+def benchBall():
+    # this only works with Florian's Ev3 Robots
+    #The bot should be alligned one square to ye right and toching ye olde wall.
+    r = Robot()
+    # approach bench
+    r.driveStraightCms(500, 37)
+    #knock down ye olde bench by turning
+    r.spinLeftToAngle(100, -55)
+    r.driveStraightCms(100, 6.5)
+    #We should be lined up with ye olde bench
+    r.spinRightToAngle(100, 3)
+    r.driveStraightCms(100, 7.5)
+    #Wham!! Ye olde bench should be knocked down.
+    r.spinLeftToAngle(500, -45)
+    r.spinRightToAngle(100, 3)
+    #Aproch the bench and drop cubes!
+    r.driveStraightCms(100, 4)
+    r.leftTopMotor.run_angle(100,180,Stop.COAST,False)
+    
 
 def testTurn():
     r = Robot()

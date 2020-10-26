@@ -165,3 +165,8 @@ def benchBall():
     r.spinLeftToAngle(100, -55)
     r.driveStraightCms(100, 5)
     r.spinRightToAngle(100, 35)
+
+def bocciPlainBocci():
+    r = Robot()
+    r.driveStraightCms(500, 100)
+    r.runTopMotors(500, 45)

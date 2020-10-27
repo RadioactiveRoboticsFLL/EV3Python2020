@@ -16,6 +16,7 @@ def pullUpBar():
     # r.driveForwardCms(500, 106-11)
     # r.spinRight(250, 120)
     wait(1000)
+    #go backwards
     r.driveForwardCms(-500, 33)
     r.runTopMotors(-500, 7.5*360)
 
@@ -166,7 +167,31 @@ def benchBall():
     r.driveStraightCms(100, 5)
     r.spinRightToAngle(100, 35)
 
+# bocci mission (M08)
+# put jig in normal spot, then put triangle
+# jig in that jig.  Back of robot is against
+# triangle jig.
 def bocciPlainBocci():
     r = Robot()
     r.driveStraightCms(500, 100)
+    # dump blocks!
     r.runTopMotors(500, 45)
+    #go backwards to base
+    r.driveForwardCms(-500, 1205)
+    # this will get us off the mat
+    # r.spinRight(350, 35)
+    # r.driveForwardCms(-500, 60)
+
+# M01 & M04
+#Set it up with the jig and point the robot up and you also need 
+# the attachment to dump the innovation and health units.
+def innovationbench():
+    r = Robot()
+    r.driveStraightCms(500, 37)
+    r.spinRightToAngle(100,37)
+    # dump stuff
+    r.runTopMotors(500,45)
+    #knock down bench?
+    # go home
+    r.driveForwardCms(-500,27)
+    

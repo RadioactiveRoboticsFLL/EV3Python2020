@@ -30,12 +30,14 @@ def bocciBench():
     # r.rightTopMotor.run_time(-500, 1000)
 
 
+
+
 def treadmill():
     r = Robot()
 
-    # This v will get us on top, but we want to stop.
+    # This will get us on top, but we want to stop.
     # r.driveStraightCms(600, 172)
-    r.driveStraightCms(600, 172 - 25)
+    r.driveStraightCms(200, 172 - 25)
     r.driveForwardCms(600, 10)
     #onTopOfTreadmill!!!!!!!!
     #turn on one (right) motor

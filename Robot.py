@@ -17,7 +17,8 @@ class Robot:
         self.minSpinSpeed = 30.
         self.gyro = GyroSensor(Port.S4)
         self.wheelRadiusCm = 4.0
-        self.gyroGain = 0.7
+        # better then 0.7
+        self.gyroGain = 1.4
         self.rampDownRatio = 0.5
 
     def runTopMotors(self, speed, rotation_angle):
@@ -147,7 +148,9 @@ class Robot:
                 leftButtonPressed = btn == Button.LEFT
             angleDeGyro = self.gyro.angle()
             brick.display.clear()
-            brick.display.text(angleDeGyro)
+            brick.display.text("Gyro Value: ")
+            for i in range(3):
+                brick.display.text(angleDeGyro)
             wait(50)
         wait(1000)
         leftButtonPressed = False
@@ -158,6 +161,9 @@ class Robot:
                 leftButtonPressed = btn == Button.LEFT
             # angleDeGyro = self.gyro.angle()
             brick.display.clear()
-            brick.display.text("Hardware Calibrate?")
+            for i in range(3):
+                brick.display.text("Hardware Calibrate?")
             wait(50)
         brick.display.clear()
+        # give user chance to get finger off button
+        wait(2000)

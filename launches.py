@@ -10,7 +10,7 @@ from pybricks.robotics import DriveBase
 
 def pullUpBar():
     r = Robot()
-    r.driveStraightCms(500, 106-15)
+    r.driveStraightCms(500, 106-17)
     brick.sound.beep()
     r.spinRightToAngle(250, 90)
     # r.driveForwardCms(500, 106-11)
@@ -177,7 +177,7 @@ def bocciPlainBocci():
     # dump blocks!
     r.runTopMotors(500, 45)
     #go backwards to base
-    r.driveForwardCms(-500, 1205)
+    r.driveForwardCms(-500, 120)
     # this will get us off the mat
     # r.spinRight(350, 35)
     # r.driveForwardCms(-500, 60)
@@ -190,8 +190,10 @@ def innovationbench():
     r.driveStraightCms(500, 37)
     r.spinRightToAngle(100,37)
     # dump stuff
-    r.runTopMotors(500,45)
-    #knock down bench?
+    r.runTopMotors(500, 360)
+    # knock down bench
+    r.spinLeftToAngle(250, -19)
     # go home
-    r.driveForwardCms(-500,27)
+    r.spinRightToAngle(500, 15)
+    r.driveForwardCms(-500,35)
     

@@ -32,8 +32,13 @@ def bocciBench():
 
 def treadmill():
     r = Robot()
+    
+    # Benched!!
+    # Use if we have time
+
 
     # This will get us on top, but we want to stop.
+    # doesn't go straight when it's too fast
     # r.driveStraightCms(600, 172)
     r.driveStraightCms(200, 172 - 25)
     r.driveForwardCms(600, 10)
@@ -45,9 +50,9 @@ def treadmill():
     # Straiten out!!
     gyroAngle = r.gyro.angle()
     if gyroAngle > 0:
-        r.spinLeftToAngle(100, 0)
+        r.spinLeftToAngle(50, 0)
     else:
-        r.spinRightToAngle(100, 0)
+        r.spinRightToAngle(50, 0)
     # To Home!!!!!
     # r.driveStraightCms(-650, 150) this does not work.
     # to go backwards, just give it neg. power
@@ -196,4 +201,12 @@ def innovationbench():
     # go home
     r.spinRightToAngle(500, 15)
     r.driveForwardCms(-500,35)
-    
+
+# start this against the wall
+# goes up to step counter, then pushes it SLOW!    
+def stepCOUNTER():
+    r = Robot()
+    r.driveStraightCms(450, 85)
+    r.driveForwardCms(25, 20)
+    # REVERSE!!!!!!
+    r.driveForwardCms(-1000, 120)

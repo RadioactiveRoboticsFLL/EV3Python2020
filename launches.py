@@ -10,15 +10,15 @@ from pybricks.robotics import DriveBase
 
 def pullUpBar():
     r = Robot()
-    r.driveStraightCms(500, 106-17)
+    r.driveStraightCms(500, 106-20)
     brick.sound.beep()
-    r.spinRightToAngle(250, 90)
+    r.spinRightToAngle(150, 87.5)
     # r.driveForwardCms(500, 106-11)
     # r.spinRight(250, 120)
     wait(1000)
     #go backwards
-    r.driveForwardCms(-500, 33)
-    r.runTopMotors(-500, 7.5*360)
+    r.driveForwardCms(-500, 28)
+    r.runTopMotors(-200, 9*360)
 
 def bocciBench():
     r = Robot()
@@ -28,8 +28,6 @@ def bocciBench():
     # we have arrived at the bocci ball
     r.rightTopMotor.run_time(500, 1000)
     # r.rightTopMotor.run_time(-500, 1000)
-
-
 
 
 def treadmill():

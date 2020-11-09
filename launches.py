@@ -10,7 +10,7 @@ from pybricks.robotics import DriveBase
 
 def pullUpBar():
     r = Robot()
-    r.driveStraightCms(500, 106-20)
+    r.driveStraightCms(500, 106-21)
     brick.sound.beep()
     r.spinRightToAngle(150, 87.5)
     # r.driveForwardCms(500, 106-11)
@@ -35,7 +35,7 @@ def treadmill():
     
     # Benched!!
     # Use if we have time
-
+    # maybe not... :-( too many penlties
 
     # This will get us on top, but we want to stop.
     # doesn't go straight when it's too fast
@@ -50,13 +50,15 @@ def treadmill():
     # Straiten out!!
     gyroAngle = r.gyro.angle()
     if gyroAngle > 0:
-        r.spinLeftToAngle(50, 0)
+        r.spinLeftToAngle(30, 0)
     else:
-        r.spinRightToAngle(50, 0)
+        r.spinRightToAngle(30, 0)
     # To Home!!!!!
     # r.driveStraightCms(-650, 150) this does not work.
     # to go backwards, just give it neg. power
-    r.driveForwardCms(-650, 150)
+    r.driveForwardCms(-150, 75)
+    r.driveForwardCms(-999999999999999999999999999, 75)
+    # BOOM!!!!!!!!!
 
 def Bocci():
     # This dumps Sabastion and heath units at bench.
@@ -210,3 +212,14 @@ def stepCOUNTER():
     r.driveForwardCms(25, 20)
     # REVERSE!!!!!!
     r.driveForwardCms(-1000, 120)
+
+
+
+def bocciOtherTable():
+    r = Robot()
+    r.driveStraightCms(200, 47.5)
+    r.spinLeftToAngle(50, -44)
+    r.driveStraightCms(100, 30)
+    r.runTopMotors(100, 75)
+    r.runTopMotors(-100, 75)
+    #Go back home!!

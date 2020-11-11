@@ -33,6 +33,11 @@ class Robot:
         # but wait here!
         self.rightMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
     
+    def moveForTime(self, rightPower, leftPower, msecs):
+        self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
+        self.rightMotor.run_time(rightPower, msecs, Stop.COAST, True)
+
+
     def spinRight(self, speed, rotation_angle):
         "Just like drive forward, except right motor goes backward"
         self.leftMotor.run_angle(speed,rotation_angle,Stop.COAST,False)
@@ -167,3 +172,4 @@ class Robot:
         brick.display.clear()
         # give user chance to get finger off button
         wait(2000)
+

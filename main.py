@@ -21,9 +21,10 @@ def displayMENU():
     brick.display.text("TOP == bocciPlainBocci")
     brick.display.text("LEFT == innavationBench")
     brick.display.text("CENTER == stepCOUNTER")
-    brick.display.text("BOTTOM == treadmill")
+    brick.display.text("BOTTOM == bocciOtherT")
     brick.display.text("RIGHT == pullUpBar")
 r = Robot()
+
 
 # do a quick menu
 r.gyroDriftCheck()
@@ -46,8 +47,8 @@ while True:
             bocciPlainBocci()
         elif btn == Button.DOWN:
             # r.runTopMotors(-500, 6*360)
-            treadmill()
-            #bocciOtherTable()
+            # treadmill()
+            bocciOtherTable()
         elif btn == Button.CENTER:
             # bocciBench()
             stepCOUNTER()

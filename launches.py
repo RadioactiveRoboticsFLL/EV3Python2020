@@ -17,8 +17,9 @@ def pullUpBar():
     # r.spinRight(250, 120)
     wait(1000)
     #go backwards
-    r.driveForwardCms(-500, 28)
-    r.runTopMotors(-200, 9*360)
+    r.driveForwardCms(-200, 28)
+    # pull up!
+    r.runTopMotors(-500, 9*360)
 
 def bocciBench():
     r = Robot()
@@ -71,7 +72,7 @@ def Bocci():
     r.driveStraightCms(500, 40)
 
 def benchBall():
-    # this only works with Florian's Ev3 Robots
+    # this only works with Florian's Ev3 bot
     #The bot should be alligned one square to ye right and toching ye olde wall.
     r = Robot()
     # approach bench
@@ -199,27 +200,35 @@ def innovationbench():
     # dump stuff
     r.runTopMotors(500, 360)
     # knock down bench
-    r.spinLeftToAngle(250, -19)
+    # r.spinLeftToAngle(250, -19)
+    r.moveForTime(200, -200, 1000)
     # go home
     r.spinRightToAngle(500, 15)
     r.driveForwardCms(-500,35)
 
 # start this against the wall
 # goes up to step counter, then pushes it SLOW!    
+# and does NOT bump it!
 def stepCOUNTER():
     r = Robot()
     r.driveStraightCms(450, 85)
     r.driveForwardCms(25, 20)
     # REVERSE!!!!!!
-    r.driveForwardCms(-1000, 120)
+    r.driveForwardCms(-500, 120)
 
 
-
+# This is for mission 8
+# set up the bot w/ ye tri-angle jig
 def bocciOtherTable():
     r = Robot()
-    r.driveStraightCms(200, 47.5)
+    r.driveStraightCms(300, 47.5)
     r.spinLeftToAngle(50, -44)
-    r.driveStraightCms(100, 30)
-    r.runTopMotors(100, 75)
-    r.runTopMotors(-100, 75)
+    r.driveStraightCms(300, 30)
+    # knock the ball on the other table!!
+    r.runTopMotors(100, 50)
+    r.runTopMotors(-100, 50)
     #Go back home!!
+    r.driveForwardCms(-500, 40)
+    r.spinLeftToAngle(400, -130)
+    r.driveForwardCms(500, 70)
+    # Back home!!

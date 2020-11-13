@@ -223,7 +223,7 @@ def bocciOtherTable():
     r = Robot()
     r.driveStraightCms(300, 47.5)
     r.spinLeftToAngle(50, -44)
-    r.driveStraightCms(300, 30)
+    r.driveStraightCms(300, 31.5)
     # knock the ball on the other table!!
     r.runTopMotors(100, 50)
     r.runTopMotors(-100, 50)

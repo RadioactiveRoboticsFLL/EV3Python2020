@@ -10,7 +10,7 @@ from pybricks.robotics import DriveBase
 
 def pullUpBar():
     r = Robot()
-    r.driveStraightCms(500, 106-21)
+    r.driveStraightCms(250, 106-21)
     brick.sound.beep()
     r.spinRightToAngle(150, 87.5)
     # r.driveForwardCms(500, 106-11)
@@ -212,7 +212,7 @@ def innovationbench():
 def stepCOUNTER():
     r = Robot()
     r.driveStraightCms(450, 85)
-    r.driveForwardCms(25, 20)
+    r.driveForwardCms(25, 19)
     # REVERSE!!!!!!
     r.driveForwardCms(-500, 120)
 

@@ -1,5 +1,6 @@
 # EV3Python2020 - python code for EV3 robot
 
+
 ## Introduction
 
 We are Radioactive Robotics, an FLL team from Pocahontas County, WV, USA, North America, Earth, Solar System, Milky Way, Universe.
@@ -9,6 +10,9 @@ This python code runs our EV3 robot in the FLL 2020-2021 robot game (Replay).
 ## Our Robot
 
 TBF: What should we say about the robot that's important to the code?
+
+TBF: we removed these images because they are too big, and take time to
+get copied to the robot.
 
 <img src="./data/IMG_0261.jpg" alt="data/IMG_0261.jpg" width="500">
 

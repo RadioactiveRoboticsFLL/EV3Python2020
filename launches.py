@@ -232,3 +232,39 @@ def bocciOtherTable():
     r.spinLeftToAngle(400, -130)
     r.driveForwardCms(500, 70)
     # Back home!!
+
+
+
+
+# does step counter away from wall,
+# so we can turn into pullup bar
+def stepCOUNTER2():
+    r = Robot()
+    r.driveStraightCms(450, 85)
+    r.driveForwardCms(25, 19)
+    # r.driveForwardCms(-500, 120)
+    r.driveForwardCms(-100, 7)
+    r.spinLeftToAngle(100, -90)
+    r.driveStraightCms(700, 50)
+
+
+
+
+
+# does step counter against the wall, like before,
+# but then backs off the wall so we can turn into pullup bar
+def stepCOUNTER3():
+    r = Robot()
+    # r.driveStraightCms(450, 85)
+    # hug the wall on the right
+    r.driveMotorsCms(450, 460, 85)
+    r.driveForwardCms(25, 19)
+    # r.driveForwardCms(-500, 120)
+    # r.driveForwardCms(-100, 7)
+    # r.spinLeftToAngle(100, -90)
+    # r.driveStraightCms(700, 50)
+    r.moveForTime(-200, -100, 2000)
+    r.spinLeftToAngle(100, 0)
+    r.driveStraightCms(100, 5)
+    r.spinLeftToAngle(100, -90)
+    r.driveStraightCms(700, 50)

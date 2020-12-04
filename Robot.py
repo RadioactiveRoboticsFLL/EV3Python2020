@@ -33,6 +33,13 @@ class Robot:
         # but wait here!
         self.rightMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
     
+    def driveMotors(self, rightSpeed, leftSpeed, rotation_angle):
+        "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
+        # don't wait here, so that both motors can turn at the same time
+        self.leftMotor.run_angle(leftSpeed,rotation_angle,Stop.COAST,False)
+        # but wait here!
+        self.rightMotor.run_angle(rightSpeed,rotation_angle,Stop.COAST,True)
+
     def moveForTime(self, rightPower, leftPower, msecs):
         self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
         self.rightMotor.run_time(rightPower, msecs, Stop.COAST, True)
@@ -61,6 +68,13 @@ class Robot:
         degrees = self.cms2degrees(cms)
         self.driveForward(speed, degrees)
     
+    def driveMotorsCms(self, leftSpeed, rightSpeed, cms):
+        "drives foward how many centimeters you tell it"
+        #convert cm to degrees
+        degrees = self.cms2degrees(cms)
+        self.driveMotors(rightSpeed, leftSpeed degrees)
+
+
     def driveStraightCms(self, speed, cms):
         "drives straight with gyro sensor, however many cms you tell it"
         # resets both motor angles

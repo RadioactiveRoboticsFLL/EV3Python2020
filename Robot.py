@@ -68,11 +68,11 @@ class Robot:
         degrees = self.cms2degrees(cms)
         self.driveForward(speed, degrees)
     
-    def driveMotorsCms(self, leftSpeed, rightSpeed, cms):
+    def driveMotorsCms(self, rightSpeed, leftSpeed, cms):
         "drives foward how many centimeters you tell it"
         #convert cm to degrees
         degrees = self.cms2degrees(cms)
-        self.driveMotors(rightSpeed, leftSpeed degrees)
+        self.driveMotors(rightSpeed, leftSpeed, degrees)
 
 
     def driveStraightCms(self, speed, cms):

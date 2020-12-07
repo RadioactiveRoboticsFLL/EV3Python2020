@@ -257,14 +257,38 @@ def stepCOUNTER3():
     r = Robot()
     # r.driveStraightCms(450, 85)
     # hug the wall on the right
-    r.driveMotorsCms(450, 460, 85)
-    r.driveForwardCms(25, 19)
+    r.driveMotorsCms(450, 470, 82)
+    # r.driveForwardCms(25, 19)
+
+    # this should push for time, not distance,
+    # and continue pushing against the wall too
+    r.moveForTime(25, 27, 12000)
     # r.driveForwardCms(-500, 120)
     # r.driveForwardCms(-100, 7)
     # r.spinLeftToAngle(100, -90)
     # r.driveStraightCms(700, 50)
+
+    # turn backwards
     r.moveForTime(-200, -100, 2000)
+    # straighetn out again
     r.spinLeftToAngle(100, 0)
+    # get lined up for pull up bar
     r.driveStraightCms(100, 5)
+    # and point towards pull up bar
     r.spinLeftToAngle(100, -90)
-    r.driveStraightCms(700, 50)
+
+    # go under pullupbar
+    r.driveStraightCms(700, 53)
+
+    # turn 90 degeres
+    r.spinLeftToAngle(100, -180)
+    # go foward up to slide
+    r.driveForwardCms(100, 25)
+    # turn so parallel with slide
+    r.spinLeftToAngle(100, -225)
+
+    # extend the arm to shove the dude down the slide
+    r.runTopMotors(200, 180)
+    
+    # GO HOME!!!!
+    # r.driveForwardCms(900, 100)

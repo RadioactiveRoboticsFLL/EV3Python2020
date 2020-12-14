@@ -14,17 +14,18 @@ from motion import driveForward,spinRight,spinLeft
 from Robot import Robot
 from launches import pullUpBar, bocciBench
 from motorControl import motorControl
-from launches import treadmill, stepCOUNTER, Bocci, bocciPlainBocci, innovationbench, bocciOtherTable
+from launches import treadmill, blueTriangle, Bocci, bocciPlainBocci, innovationbench, bocciOtherTable
 def displayMENU():
     # top left center bottom right
     brick.display.text("")
     brick.display.text("TOP == bocciPlainBocci")
     brick.display.text("LEFT == innavationBench")
-    brick.display.text("CENTER == stepCOUNTER")
+    brick.display.text("CENTER == blueTriangle")
     brick.display.text("BOTTOM == bocciOtherT")
     brick.display.text("RIGHT == pullUpBar")
 r = Robot()
 
+# motorControl()
 
 # do a quick menu
 r.gyroDriftCheck()
@@ -51,7 +52,7 @@ while True:
             bocciOtherTable()
         elif btn == Button.CENTER:
             # bocciBench()
-            stepCOUNTER()
+            blueTriangle()
         brick.display.clear()
         displayMENU()
 

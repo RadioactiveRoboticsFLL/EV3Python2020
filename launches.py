@@ -253,11 +253,11 @@ def stepCOUNTER2():
 
 # does step counter against the wall, like before,
 # but then backs off the wall so we can turn into pullup bar
-def stepCOUNTER3():
+def blueTriangle():
     r = Robot()
     # r.driveStraightCms(450, 85)
     # hug the wall on the right
-    r.driveMotorsCms(450, 470, 82)
+    r.driveMotorsCms(450, 470, 81)
     # r.driveForwardCms(25, 19)
 
     # this should push for time, not distance,
@@ -278,7 +278,7 @@ def stepCOUNTER3():
     r.spinLeftToAngle(100, -90)
 
     # go under pullupbar
-    r.driveStraightCms(700, 53)
+    r.driveStraightCms(200, 53)
 
     # turn 90 degeres
     r.spinLeftToAngle(100, -180)
@@ -289,6 +289,9 @@ def stepCOUNTER3():
 
     # extend the arm to shove the dude down the slide
     r.runTopMotors(200, 180)
-    
+    r.driveForwardCms(100, 13)
+    r.leftTopMotor.run_time(-100, 2000, Stop.COAST, True)
+    # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
+
     # GO HOME!!!!
-    # r.driveForwardCms(900, 100)
+    r.driveForwardCms(900, 100)

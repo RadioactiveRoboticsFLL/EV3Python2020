@@ -10,51 +10,18 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
 from pybricks.tools import wait, print
 
 # our imports
-from motion import driveForward,spinRight,spinLeft
 from Robot import Robot
-from launches import pullUpBar, bocciBench
-from motorControl import motorControl
-from launches import treadmill, blueTriangle, Bocci, bocciPlainBocci, innovationbench, bocciOtherTable
-def displayMENU():
-    # top left center bottom right
-    brick.display.text("")
-    brick.display.text("TOP == bocciPlainBocci")
-    brick.display.text("LEFT == innavationBench")
-    brick.display.text("CENTER == blueTriangle")
-    brick.display.text("BOTTOM == bocciOtherT")
-    brick.display.text("RIGHT == pullUpBar")
+from menu import menu
+
+# Create a robot object from our Robot class
+# so we can use it's functions
 r = Robot()
 
-# motorControl()
-
-# do a quick menu
+# This checks for gyro drift which is bad, but can
+# be fixed by unplugging/plugging the gyro sensor, which
+# it lets you do
 r.gyroDriftCheck()
-btns = brick.buttons()
 
-displayMENU()
-while True:
-    if len(btns) == 1:
-        btn = btns[0]
-        if btn == Button.LEFT:
-            # motorControl()
-            # stepCOUNTER()
-            # Bocci()
-            innovationbench()
-        elif btn == Button.RIGHT:
-            pullUpBar()
-            # r.driveStraightCms(500, 100)
-        elif btn == Button.UP:    
-            # r.runTopMotors(500, 6*360)
-            bocciPlainBocci()
-        elif btn == Button.DOWN:
-            # r.runTopMotors(-500, 6*360)
-            # treadmill()
-            bocciOtherTable()
-        elif btn == Button.CENTER:
-            # bocciBench()
-            blueTriangle()
-        brick.display.clear()
-        displayMENU()
-
-    btns = brick.buttons()
+# This lets you access all the launches.
+menu()
 

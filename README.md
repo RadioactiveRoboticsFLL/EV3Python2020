@@ -14,11 +14,7 @@ TBF: What should we say about the robot that's important to the code?
 TBF: we removed these images because they are too big, and take time to
 get copied to the robot.
 
-<img src="./data/IMG_0261.jpg" alt="data/IMG_0261.jpg" width="500">
-
-<img src="./data/IMG_0262.JPG" alt="data/IMG_0262.JPG" width="500">
-
-<img src="./data/IMG_0263.JPG" alt="data/IMG_0263.JPG" width="500">
+<img src="./data/robotPic1.jpg" alt="data/robotPic1.jpg" width="500">
 
 ## The Code
 

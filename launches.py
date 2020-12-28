@@ -276,7 +276,8 @@ def blueTriangle():
     r.driveStraightCms(100, 5)
     # and point towards pull up bar
     r.spinLeftToAngle(100, -90)
-
+    # We are trying to get the arm out of the way
+    r.leftTopMotor.run_time(100, 2000, Stop.COAST, True)
     # go under pullupbar
     r.driveStraightCms(200, 53)
 

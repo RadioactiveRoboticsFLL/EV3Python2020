@@ -1,3 +1,4 @@
+# :-)
 from pybricks import ev3brick as brick
 from pybricks.tools import wait, print
 from Robot import Robot
@@ -255,6 +256,11 @@ def stepCOUNTER2():
 # but then backs off the wall so we can turn into pullup bar
 def blueTriangle():
     r = Robot()
+
+    # test
+    # r.runTopMotors(200, 120)
+    # return
+    
     # r.driveStraightCms(450, 85)
     # hug the wall on the right
     r.driveMotorsCms(450, 470, 81)
@@ -278,8 +284,10 @@ def blueTriangle():
     r.spinLeftToAngle(100, -90)
     # We are trying to get the arm out of the way
     r.leftTopMotor.run_time(100, 2000, Stop.COAST, True)
+    # We are going backwards to get strait with the wall.
+    r.moveForTime(-400, -400, 3000)
     # go under pullupbar
-    r.driveStraightCms(200, 53)
+    r.driveStraightCms(200, 53 + 7)
 
     # turn 90 degeres
     r.spinLeftToAngle(100, -180)
@@ -289,10 +297,28 @@ def blueTriangle():
     r.spinLeftToAngle(100, -225)
 
     # extend the arm to shove the dude down the slide
-    r.runTopMotors(200, 180)
+    r.runTopMotors(200, 120)
+    brick.sound.beep()
     r.driveForwardCms(100, 13)
+    brick.sound.beep()
+    
     r.leftTopMotor.run_time(-100, 2000, Stop.COAST, True)
+    brick.sound.beep()
+
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
 
     # GO HOME!!!!
     r.driveForwardCms(900, 100)
+
+
+
+
+
+
+
+
+
+
+# ;-P
+# I was here!!
+# Hello future person

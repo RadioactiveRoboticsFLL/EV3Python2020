@@ -8,10 +8,12 @@ from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
 from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
 from pybricks.tools import wait, print
-
+from motorControl import motorControl
 # our imports
 from Robot import Robot
 from menu import menu
+
+brick.sound.beep()
 
 # Create a robot object from our Robot class
 # so we can use it's functions
@@ -24,4 +26,4 @@ r.gyroDriftCheck()
 
 # This lets you access all the launches.
 menu()
-
+# motorControl()

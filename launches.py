@@ -297,7 +297,9 @@ def blueTriangle():
     r.spinLeftToAngle(100, -225)
 
     # extend the arm to shove the dude down the slide
-    r.runTopMotors(200, 120)
+    # r.runTopMotors(200, 120)
+    r.leftTopMotor.run_angle(-50, 73, Stop.BRAKE, True)
+    r.leftTopMotor.run(1)
     brick.sound.beep()
     r.driveForwardCms(100, 13)
     brick.sound.beep()

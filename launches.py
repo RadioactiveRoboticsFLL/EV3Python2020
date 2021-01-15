@@ -249,6 +249,15 @@ def stepCOUNTER2():
     r.driveStraightCms(700, 50)
 
 
+def DROPcube(robot):
+    # Uses the CUBE DROPPER atachment
+    # DROP CUBE!!!!!!!!
+    robot.rightTopMotor.run_angle(-100, 190, Stop.BRAKE, True)
+    # Wait for cube to fall down maggazine and detachable barrel
+    wait(2000)    
+    # Reset CUBE DROPPER
+    robot.rightTopMotor.run_angle(100, 190, Stop.BRAKE, True)
+
 
 
 
@@ -311,6 +320,24 @@ def blueTriangle():
 
     # GO HOME!!!!
     r.driveForwardCms(900, 100)
+
+def cubesInTheBench():
+    r = Robot()
+    # the robot starts with the triangle jig
+    r.driveStraightCms(300, 40)
+    # Spin Left until Parralel with BENCH
+    r.spinLeftToAngle(100, -120)
+    # DrIve unTIL CUBE DROPPER is OvER fiRSt TARget
+    r.driveStraightCms(300, 25)
+    for dropNumber in range(4):
+        # DROP CUBE!!!!!!!!
+        DROPcube(r)
+        # move to next TARget
+        r.driveStraightCms(200, 5)
+    # Time to GO HOME!!!!
+    r.driveForwardCms(700, 50)
+
+
 
 
 

@@ -292,7 +292,7 @@ def blueTriangle():
     # and point towards pull up bar
     r.spinLeftToAngle(100, -90)
     # We are trying to get the arm out of the way
-    r.leftTopMotor.run_time(100, 2000, Stop.COAST, True)
+    r.leftTopMotor.run_time(100, 1000, Stop.COAST, True)
     # We are going backwards to get strait with the wall.
     r.moveForTime(-400, -400, 3000)
     # go under pullupbar

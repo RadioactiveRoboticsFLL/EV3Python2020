@@ -250,6 +250,7 @@ def stepCOUNTER2():
 
 
 def DROPcube(robot):
+    # The BEST function for the BEST attachment.
     # Uses the CUBE DROPPER atachment
     # DROP CUBE!!!!!!!!
     robot.rightTopMotor.run_angle(-100, 190, Stop.BRAKE, True)
@@ -294,7 +295,7 @@ def blueTriangle():
     # We are trying to get the arm out of the way
     r.leftTopMotor.run_time(100, 1000, Stop.COAST, True)
     # We are going backwards to get strait with the wall.
-    r.moveForTime(-400, -400, 3000)
+    r.moveForTime(-200, -200, 1000)
     # go under pullupbar
     r.driveStraightCms(200, 53 + 7)
 
@@ -319,7 +320,9 @@ def blueTriangle():
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
 
     # GO HOME!!!!
-    r.driveForwardCms(900, 100)
+    r.driveForwardCms(900, 60)
+    r.driveMotorsCms(450, 470, 30)
+    
 
 def cubesInTheBench():
     r = Robot()

@@ -253,11 +253,11 @@ def DROPcube(robot):
     # The BEST function for the BEST attachment.
     # Uses the CUBE DROPPER atachment
     # DROP CUBE!!!!!!!!
-    robot.rightTopMotor.run_angle(-100, 190, Stop.BRAKE, True)
+    robot.leftTopMotor.run_angle(-100, 95, Stop.BRAKE, True)
     # Wait for cube to fall down maggazine and detachable barrel
-    wait(2000)    
+    wait(500)    
     # Reset CUBE DROPPER
-    robot.rightTopMotor.run_angle(100, 190, Stop.BRAKE, True)
+    robot.leftTopMotor.run_angle(100, 95, Stop.BRAKE, True)
 
 
 
@@ -266,16 +266,13 @@ def DROPcube(robot):
 # but then backs off the wall so we can turn into pullup bar
 def blueTriangle():
     r = Robot()
-
     # test
     # r.runTopMotors(200, 120)
     # return
-    
     # r.driveStraightCms(450, 85)
     # hug the wall on the right
     r.driveMotorsCms(450, 470, 81)
     # r.driveForwardCms(25, 19)
-
     # this should push for time, not distance,
     # and continue pushing against the wall too
     r.moveForTime(25, 27, 12000)
@@ -283,7 +280,6 @@ def blueTriangle():
     # r.driveForwardCms(-100, 7)
     # r.spinLeftToAngle(100, -90)
     # r.driveStraightCms(700, 50)
-
     # turn backwards
     r.moveForTime(-200, -100, 2000)
     # straighetn out again
@@ -298,14 +294,12 @@ def blueTriangle():
     r.moveForTime(-200, -200, 1000)
     # go under pullupbar
     r.driveStraightCms(200, 53 + 7)
-
     # turn 90 degeres
     r.spinLeftToAngle(100, -180)
     # go foward up to slide
     r.driveForwardCms(100, 25)
     # turn so parallel with slide
     r.spinLeftToAngle(100, -225)
-
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
     r.leftTopMotor.run_angle(-50, 73, Stop.BRAKE, True)
@@ -313,15 +307,18 @@ def blueTriangle():
     brick.sound.beep()
     r.driveForwardCms(100, 13)
     brick.sound.beep()
-    
     r.leftTopMotor.run_time(-100, 2000, Stop.COAST, True)
     brick.sound.beep()
-
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
+    # GO HOME!!!!  push the guy with us
+    brick.sound.beep()
+    r.driveForwardCms(900, 45)
+    brick.sound.beep()
+    r.spinRight(400, 45)
+    brick.sound.beep()
+    r.driveForwardCms(700, 25)
+    brick.sound.beep()
 
-    # GO HOME!!!!
-    r.driveForwardCms(900, 60)
-    r.driveMotorsCms(450, 470, 30)
     
 
 def cubesInTheBench():
@@ -342,9 +339,28 @@ def cubesInTheBench():
 
 
 
+# setup robot, back to wall, left side on edge of mat.
+def cubesInTheBench2():
+    r = Robot()
+    r.driveStraightCms(200, 43)
+    r.spinLeftToAngle(100, -45)
+    r.driveStraightCms(100, 4.5)
+    r.spinRightToAngle(100, 10)
+    # push up against bar ready to drop into left sides hole
+    r.moveForTime(75, 75, 600)
+    
+    # drop a cube, then move to the next hole on the right
+    for i in range(3):
 
+        # DROPcube(r)
+        DROPcube(r)
 
-
+        # back up, and get set up for dropping next ones
+        r.driveForwardCms(-100, 10)
+        r.spinRightToAngle(100, 90)
+        r.driveStraightCms(100, 5.0)
+        r.spinLeftToAngle(100, 10)
+        r.driveStraightCms(100, 10)
 
 
 

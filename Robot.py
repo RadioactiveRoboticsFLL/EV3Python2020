@@ -158,6 +158,7 @@ class Robot:
         brick.display.text(gyroAngle)
 
     def gyroDriftCheck(self):
+        self.gyro.reset_angle(0)
         # get all the buttons that are currently pressed
         leftButtonPressed = False
         while not leftButtonPressed:

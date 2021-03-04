@@ -287,7 +287,7 @@ def blueTriangle():
     # straighetn out again
     r.spinLeftToAngle(200, 0)
     # get lined up for pull up bar
-    r.driveStraightCms(400, 5)
+    r.driveStraightCms(200, 6)
     # and point towards pull up bar
     r.spinLeftToAngle(200, -90)
     # We are trying to get the arm out of the way
@@ -296,13 +296,13 @@ def blueTriangle():
     r.moveForTime(-200, -200, 1000)
     r.gyro.reset_angle(-90)
     # go under pullupbar
-    r.driveStraightCms(500, 53 + 7)
+    r.driveStraightCms(500, 53 + 10)
     # turn 90 degeres
     r.spinLeftToAngle(100, -180)
     # go foward up to slide
     r.driveForwardCms(300, 22)
     # turn so parallel with slide
-    r.spinLeftToAngle(100, -225)
+    r.spinLeftToAngle(100, -210)
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
     r.leftTopMotor.run_angle(-50, 73, Stop.BRAKE, True)
@@ -311,9 +311,12 @@ def blueTriangle():
     r.leftTopMotor.run_time(-500, 1000, Stop.COAST, True)
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
     # GO HOME!!!!  push the guy with us
-    r.driveForwardCms(900, 45)
-    r.spinRight(400, 45)
-    r.driveForwardCms(700, 25)
+    r.driveForwardCms(900, 50)
+    brick.sound.beep()
+    power = 200 
+    r.driveMotorsCms(power, power + 200, 30)
+    # r.spinRight(400, 45)
+    # r.driveForwardCms(700, 25)
 
     
 # I was here.:-]

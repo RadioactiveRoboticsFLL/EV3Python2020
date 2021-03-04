@@ -391,9 +391,14 @@ def basketLift():
     #back up 
     r.moveForTime(-200, -200, 4000)
     #drive forward
-    r.driveStraightCms(200, 30)
+    r.driveStraightCms(200, 40)
     #spin left until arm is under basketball hoop
+    # TBF: spin for time!!! this will make sure bar is under basket
+    r.spinLeftToAngle(150, -120)
+    r.driveStraightCms(150, 4)
     #raise:)
+    r.runTopMotors(-1000, 30*360)
+#:D
 
 #  O
 # -|-

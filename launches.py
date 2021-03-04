@@ -271,56 +271,52 @@ def blueTriangle():
     # return
     # r.driveStraightCms(450, 85)
     # hug the wall on the right
-    r.driveMotorsCms(450, 470, 81)
+    power = 600
+    r.driveMotorsCms(power, power + 20, 81)
     # r.driveForwardCms(25, 19)
     # this should push for time, not distance,
     # and continue pushing against the wall too
-    r.moveForTime(25, 27, 12000)
+    r.moveForTime(25, 27, 10000)
     # r.driveForwardCms(-500, 120)
     # r.driveForwardCms(-100, 7)
     # r.spinLeftToAngle(100, -90)
     # r.driveStraightCms(700, 50)
     # turn backwards
-    r.moveForTime(-200, -100, 2000)
+    power = 200
+    r.moveForTime(-power, -(power - 100), 2000)
     # straighetn out again
-    r.spinLeftToAngle(100, 0)
+    r.spinLeftToAngle(200, 0)
     # get lined up for pull up bar
-    r.driveStraightCms(100, 5)
+    r.driveStraightCms(400, 5)
     # and point towards pull up bar
-    r.spinLeftToAngle(100, -90)
+    r.spinLeftToAngle(200, -90)
     # We are trying to get the arm out of the way
-    r.leftTopMotor.run_time(100, 1000, Stop.COAST, True)
+    r.leftTopMotor.run_time(500, 500, Stop.COAST, True)
     # We are going backwards to get strait with the wall.
     r.moveForTime(-200, -200, 1000)
+    r.gyro.reset_angle(-90)
     # go under pullupbar
-    r.driveStraightCms(200, 53 + 7)
+    r.driveStraightCms(500, 53 + 7)
     # turn 90 degeres
     r.spinLeftToAngle(100, -180)
     # go foward up to slide
-    r.driveForwardCms(100, 25)
+    r.driveForwardCms(300, 22)
     # turn so parallel with slide
     r.spinLeftToAngle(100, -225)
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
     r.leftTopMotor.run_angle(-50, 73, Stop.BRAKE, True)
     r.leftTopMotor.run(1)
-    brick.sound.beep()
     r.driveForwardCms(100, 13)
-    brick.sound.beep()
-    r.leftTopMotor.run_time(-100, 2000, Stop.COAST, True)
-    brick.sound.beep()
+    r.leftTopMotor.run_time(-500, 1000, Stop.COAST, True)
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
     # GO HOME!!!!  push the guy with us
-    brick.sound.beep()
     r.driveForwardCms(900, 45)
-    brick.sound.beep()
     r.spinRight(400, 45)
-    brick.sound.beep()
     r.driveForwardCms(700, 25)
-    brick.sound.beep()
 
     
-
+# I was here.:-]
 def cubesInTheBench():
     r = Robot()
     # the robot starts with the triangle jig
@@ -339,18 +335,18 @@ def cubesInTheBench():
 
 
 
-# setup robot, back to wall, left side on edge of mat.
+# setup robot, back to wall, left side on edge of mat, and i was here
 def cubesInTheBench2():
     r = Robot()
     r.driveStraightCms(200, 43)
     r.spinLeftToAngle(100, -45)
-    r.driveStraightCms(100, 4.5)
+    r.driveStraightCms(100, 5)
     r.spinRightToAngle(100, 10)
     # push up against bar ready to drop into left sides hole
     r.moveForTime(75, 75, 600)
     
     # drop a cube, then move to the next hole on the right
-    for i in range(3):
+    for i in range(2):
 
         # DROPcube(r)
         DROPcube(r)
@@ -358,15 +354,58 @@ def cubesInTheBench2():
         # back up, and get set up for dropping next ones
         r.driveForwardCms(-100, 10)
         r.spinRightToAngle(100, 90)
-        r.driveStraightCms(100, 5.0)
+        r.driveStraightCms(100, 6.0)
         r.spinLeftToAngle(100, 10)
         r.driveStraightCms(100, 10)
+# DROPcube(r)
+    DROPcube(r)
+
+    # back up, and get set up for dropping next ones
+    r.driveForwardCms(-100, 10)
+    r.spinRightToAngle(100, 90)
+    r.driveStraightCms(100, 8.0)
+    r.spinLeftToAngle(100, 10)
+    r.driveStraightCms(100, 10)
+
+    DROPcube(r)
+    r.driveForwardCms(-200, 40)
+
+def basketLift():
+    r=Robot()
+
+    # Here is one option:
+    #front right corner of robot lines up with the back of the 2nd E in leauge 
+
+    # but instead, we'll set up like this:
+    #setup robot at a set angle(jig)
+    #drive straight a bit past bench
+    r.driveStraightCms(250, 50)
+    #spin left until the back is facing the wall
+    r.spinLeftToAngle(250, -135)
+    #Back up and line up with the wall
+    r.moveForTime(-200, -200, 4000)
+    r.gyro.reset_angle(0)
+    #drive forward a little bit and spin to the left 90 degrees
+    r.driveStraightCms(150, 10)
+    r.spinLeftToAngle(150, -90)
+    #back up 
+    r.moveForTime(-200, -200, 4000)
+    #drive forward
+    r.driveStraightCms(200, 30)
+    #spin left until arm is under basketball hoop
+    #raise:)
+
+#  O
+# -|-
+#  /\
 
 
+# Starting: brickrun --directory="/home/robot/EV3Python2020" "/home/robot/EV3Python2020/main.py"
+# ----------
+# Remote process ended due to signal: Killed
 
 
 
 
 # ;-P
-# I was here!!
-# Hello future person
+# I was here!!(Me too!) I was again. 

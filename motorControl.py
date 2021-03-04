@@ -16,7 +16,7 @@ def motorControl():
     motor1 = Motor(Port.A)
     motor2 = Motor(Port.D)
 
-    speed = 500
+    speed = 1000
 
     while True:
         btn = None

@@ -389,15 +389,20 @@ def basketLift():
     r.driveStraightCms(150, 10)
     r.spinLeftToAngle(150, -90)
     #back up 
-    r.moveForTime(-200, -200, 4000)
+    r.moveForTime(-200, -200, 3000)
     #drive forward
-    r.driveStraightCms(200, 40)
+    r.driveStraightCms(200, 42)
     #spin left until arm is under basketball hoop
     # TBF: spin for time!!! this will make sure bar is under basket
-    r.spinLeftToAngle(150, -120)
+    r.moveForTime(150, -150, 1000)
+    #r.spinLeftToAngle(150, -120)
     r.driveStraightCms(150, 4)
     #raise:)
-    r.runTopMotors(-1000, 30*360)
+    #r.runTopMotors(-1000, 30*360)
+    r.leftTopMotor.run_time(1000, 6000, Stop.COAST, True)
+    brick.sound.beep()
+    r.moveForTime(-150, 150, 500)
+    r.leftTopMotor.run_time(1000, 6000, Stop.COAST, True)
 #:D
 
 #  O

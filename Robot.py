@@ -35,6 +35,8 @@ class Robot:
     
     def driveMotors(self, rightSpeed, leftSpeed, rotation_angle):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
+        self.leftMotor.reset_angle(0)
+        self.rightMotor.reset_angle(0)
         # don't wait here, so that both motors can turn at the same time
         self.leftMotor.run_angle(leftSpeed,rotation_angle,Stop.COAST,False)
         # but wait here!

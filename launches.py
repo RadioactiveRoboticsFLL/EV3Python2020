@@ -287,7 +287,7 @@ def blueTriangle():
     # straighetn out again
     r.spinLeftToAngle(200, 0)
     # get lined up for pull up bar
-    r.driveStraightCms(200, 6)
+    r.driveStraightCms(200, 5)
     # and point towards pull up bar
     r.spinLeftToAngle(200, -90)
     # We are trying to get the arm out of the way
@@ -305,16 +305,14 @@ def blueTriangle():
     r.spinLeftToAngle(100, -210)
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
-    r.leftTopMotor.run_angle(-50, 73, Stop.BRAKE, True)
+    # o-|-<
+    r.leftTopMotor.run_angle(-50, 66, Stop.BRAKE, True)
     r.leftTopMotor.run(1)
     r.driveForwardCms(100, 13)
     r.leftTopMotor.run_time(-500, 1000, Stop.COAST, True)
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
     # GO HOME!!!!  push the guy with us
-    r.driveForwardCms(900, 50)
-    brick.sound.beep()
-    power = 200 
-    r.driveMotorsCms(power, power + 200, 30)
+    r.driveForwardCms(900, 70)
     # r.spinRight(400, 45)
     # r.driveForwardCms(700, 25)
 
@@ -373,6 +371,11 @@ def cubesInTheBench2():
     DROPcube(r)
     r.driveForwardCms(-200, 40)
 
+def basketLiftTest():
+    r=Robot()
+    r.leftTopMotor.run_time(1000, 12000, Stop.COAST, True)
+
+
 def basketLift():
     r=Robot()
 
@@ -394,7 +397,7 @@ def basketLift():
     #back up 
     r.moveForTime(-200, -200, 3000)
     #drive forward
-    r.driveStraightCms(200, 42)
+    r.driveStraightCms(200, 40)
     #spin left until arm is under basketball hoop
     # TBF: spin for time!!! this will make sure bar is under basket
     r.moveForTime(150, -150, 1000)
@@ -402,11 +405,11 @@ def basketLift():
     r.driveStraightCms(150, 4)
     #raise:)
     #r.runTopMotors(-1000, 30*360)
-    r.leftTopMotor.run_time(1000, 6000, Stop.COAST, True)
+    r.leftTopMotor.run_time(1000, 12000, Stop.COAST, True)
     brick.sound.beep()
-    r.moveForTime(-150, 150, 500)
-    r.leftTopMotor.run_time(1000, 6000, Stop.COAST, True)
-#:D
+    #r.moveForTime(-150, 150, 600)
+    #r.leftTopMotor.run_time(1000, 6000, Stop.COAST, True)
+#:-D
 
 #  O
 # -|-

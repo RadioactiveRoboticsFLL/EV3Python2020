@@ -205,7 +205,7 @@ def innovationbench():
     r.moveForTime(200, -200, 1000)
     # go home
     r.spinRightToAngle(500, 15)
-    r.driveForwardCms(-500,35)
+    r.driveForwardCms(-900, 35)
 
 # start this against the wall
 # goes up to step counter, then pushes it SLOW!    
@@ -305,7 +305,7 @@ def blueTriangle():
     r.spinLeftToAngle(100, -210)
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
-    # o-|-<
+    # o-/-< Wait... is this dude dead???
     r.leftTopMotor.run_angle(-50, 66, Stop.BRAKE, True)
     r.leftTopMotor.run(1)
     r.driveForwardCms(100, 13)
@@ -385,30 +385,38 @@ def basketLift():
     # but instead, we'll set up like this:
     #setup robot at a set angle(jig)
     #drive straight a bit past bench
-    r.driveStraightCms(250, 50)
+    r.driveStraightCms(500, 50)
     #spin left until the back is facing the wall
     r.spinLeftToAngle(250, -135)
     #Back up and line up with the wall
-    r.moveForTime(-200, -200, 4000)
+    r.moveForTime(-400, -400, 2000)
     r.gyro.reset_angle(0)
     #drive forward a little bit and spin to the left 90 degrees
-    r.driveStraightCms(150, 10)
+    r.driveStraightCms(500, 10)
     r.spinLeftToAngle(150, -90)
     #back up 
-    r.moveForTime(-200, -200, 3000)
+    r.moveForTime(-400, -400, 1500)
     #drive forward
-    r.driveStraightCms(200, 40)
+    r.driveStraightCms(300, 40)
     #spin left until arm is under basketball hoop
     # TBF: spin for time!!! this will make sure bar is under basket
     r.moveForTime(150, -150, 1000)
     #r.spinLeftToAngle(150, -120)
-    r.driveStraightCms(150, 4)
-    #raise:)
+    # r.driveStraightCms(300, 4.5)
+    r.moveForTime(300, 300, 1000)
+
+    #raise :-)
     #r.runTopMotors(-1000, 30*360)
-    r.leftTopMotor.run_time(1000, 12000, Stop.COAST, True)
+    r.leftTopMotor.run_time(1000, 8000, Stop.COAST, True)
     brick.sound.beep()
+    r.leftTopMotor.run_time(-1000, 4000, Stop.COAST, True)
+
     #r.moveForTime(-150, 150, 600)
     #r.leftTopMotor.run_time(1000, 6000, Stop.COAST, True)
+    #straghten out!!!!!!!!!!!!!
+    r.spinRightToAngle(200, -90)
+    #GO backWARDS to HOME!!!
+    r.driveForwardCms(-500, 70)
 #:-D
 
 #  O

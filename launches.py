@@ -222,9 +222,9 @@ def stepCOUNTER():
 # set up the bot w/ ye tri-angle jig
 def bocciOtherTable():
     r = Robot()
-    r.driveStraightCms(300, 47.5)
+    r.driveStraightCms(500, 47.5)
     r.spinLeftToAngle(50, -44)
-    r.driveStraightCms(300, 31.5)
+    r.driveStraightCms(500, 32)
     # knock the ball on the other table!!
     r.runTopMotors(100, 50)
     r.runTopMotors(-100, 50)
@@ -306,13 +306,14 @@ def blueTriangle():
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
     # o-/-< Wait... is this dude dead???
-    r.leftTopMotor.run_angle(-50, 66, Stop.BRAKE, True)
-    r.leftTopMotor.run(1)
+    # r.leftTopMotor.run_angle(-50, 68, Stop.BRAKE, True)
+    r.leftTopMotor.run_angle(-50, 75, Stop.BRAKE, True)
+    # r.leftTopMotor.run(-1)
     r.driveForwardCms(100, 13)
     r.leftTopMotor.run_time(-500, 1000, Stop.COAST, True)
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
     # GO HOME!!!!  push the guy with us
-    r.driveForwardCms(900, 70)
+    r.driveForwardCms(900, 90)
     # r.spinRight(400, 45)
     # r.driveForwardCms(700, 25)
 

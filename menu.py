@@ -1,8 +1,8 @@
 from pybricks import ev3brick as brick
 from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
-                                 
-from launches import pullUpBar, bocciBench
+# :-)   
+from launches import pullUpBar, bocciBench, stepCOUNTER, basketLift
 from launches import treadmill, blueTriangle, Bocci, bocciPlainBocci, innovationbench, bocciOtherTable
 
 # displays which button runs each launch
@@ -12,7 +12,7 @@ def displayMENU():
     brick.display.text("TOP == bocciPlainBocci")
     brick.display.text("LEFT == innavationBench")
     brick.display.text("CENTER == blueTriangle")
-    brick.display.text("BOTTOM == bocciOtherT")
+    brick.display.text("BOTTOM == bocciOtherTable")
     brick.display.text("RIGHT == pullUpBar")
 
 # the menu fuction allows you to choose what
@@ -34,8 +34,10 @@ def menu():
                 bocciPlainBocci()
             elif btn == Button.DOWN:
                 bocciOtherTable()
+                # basketLift()
             elif btn == Button.CENTER:
                 blueTriangle()
+                # stepCOUNTER()
             brick.display.clear()
             displayMENU()
 

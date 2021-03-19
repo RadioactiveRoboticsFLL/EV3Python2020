@@ -222,16 +222,29 @@ def stepCOUNTER():
 # set up the bot w/ ye tri-angle jig
 def bocciOtherTable():
     r = Robot()
-    r.driveStraightCms(500, 47.5)
-    r.spinLeftToAngle(50, -44)
-    r.driveStraightCms(500, 32)
+    # when we used the big jig
+    # r.driveStraightCms(500, 47.5)
+    # r.spinLeftToAngle(50, -44)
+    # r.driveStraightCms(500, 32)
+
+    r.driveStraightCms(500, 47.5 + 10)
+    r.spinLeftToAngle(50, -43) # in theory, 45?
+    r.driveStraightCms(500, 32 - 1)
+    brick.sound.beep()
+    # now push against the wall so we know where we are
+    r.moveForTime(50, 50, 3000)
+    # then back up just the right amount
+    # r.driveForwardCms(-150, 5)
+
     # knock the ball on the other table!!
-    r.runTopMotors(100, 50)
-    r.runTopMotors(-100, 50)
+    r.runTopMotors(500, 50)
+    # r.runTopMotors(-500, 50)
     #Go back home!!
-    r.driveForwardCms(-500, 40)
-    r.spinLeftToAngle(400, -130)
-    r.driveForwardCms(500, 70)
+    # r.driveForwardCms(-500, 40 )
+    # r.spinLeftToAngle(400, -150)
+    # r.driveForwardCms(800, 90)
+    power = 500
+    r.driveMotorsCms(-power - 135, -power, 125)
     # Back home!!
 
 

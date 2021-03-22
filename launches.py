@@ -311,11 +311,13 @@ def blueTriangle():
     # go under pullupbar
     r.driveStraightCms(500, 53 + 10)
     # turn 90 degeres
-    r.spinLeftToAngle(100, -180)
+    # r.spinLeftToAngle(100, -180)
+    r.SpinLeftAngularDistance(50, 90)
     # go foward up to slide
     r.driveForwardCms(300, 22)
     # turn so parallel with slide
-    r.spinLeftToAngle(100, -210)
+    #r.spinLeftToAngle(100, -210)
+    r.SpinLeftAngularDistance(50, 30)
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
     # o-/-< Wait... is this dude dead???

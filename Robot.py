@@ -5,6 +5,7 @@ from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
 from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
 from pybricks.tools import wait, print
+import math
 
 class Robot:
 
@@ -17,6 +18,8 @@ class Robot:
         self.minSpinSpeed = 30.
         self.gyro = GyroSensor(Port.S4)
         self.wheelRadiusCm = 4.0
+        # could be 6, depending on how you measure it
+        self.driveTrainRadiusCm = 5.65
         # better then 0.7
         self.gyroGain = 1.4
         self.rampDownRatio = 0.5
@@ -33,14 +36,18 @@ class Robot:
         # but wait here!
         self.rightMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
     
-    def driveMotors(self, rightSpeed, leftSpeed, rotation_angle):
+    def driveMotors(self, rightSpeed, leftSpeed, rotation_angle, coast=True):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
+        if coast:
+            brake = Stop.COAST
+        else:
+            brake = Stop.BRAKE    
         self.leftMotor.reset_angle(0)
         self.rightMotor.reset_angle(0)
         # don't wait here, so that both motors can turn at the same time
-        self.leftMotor.run_angle(leftSpeed,rotation_angle,Stop.COAST,False)
+        self.leftMotor.run_angle(leftSpeed,rotation_angle,brake,False)
         # but wait here!
-        self.rightMotor.run_angle(rightSpeed,rotation_angle,Stop.COAST,True)
+        self.rightMotor.run_angle(rightSpeed,rotation_angle,brake,True)
 
     def moveForTime(self, rightPower, leftPower, msecs):
         self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
@@ -70,11 +77,11 @@ class Robot:
         degrees = self.cms2degrees(cms)
         self.driveForward(speed, degrees)
     
-    def driveMotorsCms(self, rightSpeed, leftSpeed, cms):
+    def driveMotorsCms(self, rightSpeed, leftSpeed, cms, coast=True):
         "drives foward how many centimeters you tell it"
         #convert cm to degrees
         degrees = self.cms2degrees(cms)
-        self.driveMotors(rightSpeed, leftSpeed, degrees)
+        self.driveMotors(rightSpeed, leftSpeed, degrees, coast=coast)
 
 
     def driveStraightCms(self, speed, cms):
@@ -190,3 +197,14 @@ class Robot:
         # give user chance to get finger off button
         wait(2000)
 
+    def SpinLeftAngularDistance(self, power, angle):
+        #convert degrees to distance
+        conversion = (2 * math.pi * self.driveTrainRadiusCm) / 360.0
+        distance = angle * conversion
+        self.driveMotorsCms(power, -power, distance, coast = False)
+
+    def SpinRightAngularDistance(self, power, angle):
+        #convert degrees to distance
+        conversion = (2 * math.pi * self.driveTrainRadiusCm) / 360.0
+        distance = angle * conversion
+        self.driveMotorsCms(-power, power, distance, coast = False)

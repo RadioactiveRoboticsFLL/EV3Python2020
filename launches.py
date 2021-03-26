@@ -328,7 +328,7 @@ def blueTriangle():
     r.leftTopMotor.run_time(-500, 1000, Stop.COAST, True)
     # self.leftMotor.run_time(leftPower, msecs, Stop.COAST, False)
     # GO HOME!!!!  push the guy with us
-    r.driveForwardCms(900, 90)
+    r.driveForwardCms(900, 80)
     # r.spinRight(400, 45)
     # r.driveForwardCms(700, 25)
 

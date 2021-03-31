@@ -21,7 +21,7 @@ class Robot:
         # could be 6, depending on how you measure it
         self.driveTrainRadiusCm = 5.65
         # better then 0.7
-        self.gyroGain = 1.4
+        self.gyroGain = 5.0
         self.rampDownRatio = 0.5
 
     def runTopMotors(self, speed, rotation_angle):

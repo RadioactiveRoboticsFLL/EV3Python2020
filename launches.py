@@ -433,6 +433,39 @@ def basketLift():
     r.spinRightToAngle(200, -90)
     #GO backWARDS to HOME!!!
     r.driveForwardCms(-500, 70)
+
+# This launch knocks down the bench, removes the bar, puts cubes in the spaces, 
+# and puts Sabastion and the health units in the grey area!
+# ---------------------
+# Set up the BOT with the left side of attachment against the THICK black stsaight line 
+# The back of the bot should be against the the wood
+def benchAll():
+    r = Robot()
+    # keep pushing the arm down so attachment does NOT move
+    # r.rightTopMotor.run(-100) dos'nt work :-( 
+    r.driveStraightCms(150, 35)
+    brick.sound.beep()
+    r.spinRightToAngle(150, 5)
+    # r.SpinRightAngularDistance(150, 7)
+    brick.sound.beep()
+    r.moveForTime(100, 100, 1000)
+    brick.sound.beep()
+    # this should knock down the bench and release the bar
+    r.spinLeftToAngle(150, -4)
+    brick.sound.beep()
+    r.spinRightToAngle(150, 5)
+    power = 100
+    r.moveForTime(power, power + 200, 1000)
+    # Release the attachment
+    r.runTopMotors(1000, 75)
+    r.rightTopMotor.run(300)
+    brick.sound.beep()
+    r.driveForwardCms(-300, 30)
+    brick.sound.beep()
+    # stop top motor
+    r.rightTopMotor.run(0)
+
+
 #:-D
 
 #  O

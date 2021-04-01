@@ -9,6 +9,11 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
 from pybricks.robotics import DriveBase
 
+
+# This launch gets the bot haning on the pull-up bar
+# -------------
+# Set up the bot with the right attachment. Use the main jig and the
+# jig attachment that is designed for pull-up bar
 def pullUpBar():
     r = Robot()
     r.driveStraightCms(250, 106-21)
@@ -32,6 +37,10 @@ def bocciBench():
     # r.rightTopMotor.run_time(-500, 1000)
 
 
+# This launch does the treadmill
+# =========
+# Set it up with the main jig and the yellow jig attachment
+# (The bot should be pointed twords the treadmill)
 def treadmill():
     r = Robot()
     
@@ -59,7 +68,7 @@ def treadmill():
     # r.driveStraightCms(-650, 150) this does not work.
     # to go backwards, just give it neg. power
     r.driveForwardCms(-150, 75)
-    r.driveForwardCms(-999999999999999999999999999, 75)
+    r.driveForwardCms(-1000, 75)
     # BOOM!!!!!!!!!
 
 def Bocci():
@@ -197,9 +206,11 @@ def DROPcube(robot):
 
 
 
-
-# does step counter against the wall, like before,
-# but then backs off the wall so we can turn into pullup bar
+# Does the stepcounter, drives under the pull-up bar, 
+# knocks the dude off the slide, and brings him home
+# ----------
+# Set it up with the back of the bot against the thick black line,
+# the right side of the bot should be touching the wall
 def blueTriangle():
     r = Robot()
     # test
@@ -307,10 +318,6 @@ def cubesInTheBench2():
 
     DROPcube(r)
     r.driveForwardCms(-200, 40)
-
-def basketLiftTest():
-    r=Robot()
-    r.leftTopMotor.run_time(1000, 12000, Stop.COAST, True)
 
 
 def basketLift():

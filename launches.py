@@ -1,4 +1,4 @@
-# :-)
+
 from pybricks import ev3brick as brick
 from pybricks.tools import wait, print
 from Robot import Robot
@@ -320,7 +320,6 @@ def blueTriangle():
     r.SpinLeftAngularDistance(50, 30)
     # extend the arm to shove the dude down the slide
     # r.runTopMotors(200, 120)
-    # o-/-< Wait... is this dude dead???
     # r.leftTopMotor.run_angle(-50, 68, Stop.BRAKE, True)
     r.leftTopMotor.run_angle(-50, 75, Stop.BRAKE, True)
     # r.leftTopMotor.run(-1)
@@ -333,7 +332,6 @@ def blueTriangle():
     # r.driveForwardCms(700, 25)
 
     
-# I was here.:-]
 def cubesInTheBench():
     r = Robot()
     # the robot starts with the triangle jig
@@ -465,20 +463,3 @@ def benchAll():
     # stop top motor
     r.rightTopMotor.run(0)
 
-
-#:-D
-
-#  O
-# -|-
-#  /\
-
-
-# Starting: brickrun --directory="/home/robot/EV3Python2020" "/home/robot/EV3Python2020/main.py"
-# ----------
-# Remote process ended due to signal: Killed
-
-
-
-
-# ;-P
-# I was here!!(Me too!) I was again. 

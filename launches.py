@@ -394,14 +394,10 @@ def benchAll():
     # stop top motor
     r.rightTopMotor.run(0)
 
-# This is for mission 8
+# This is for basket AND bocci other table missions
 # set up the bot w/ ye tri-angle jig
 def BASKETbocci():
     r = Robot()
-    # when we used the big jig
-    # r.driveStraightCms(500, 47.5)
-    # r.spinLeftToAngle(50, -44)
-    # r.driveStraightCms(500, 32)
 
     r.driveStraightCms(500, 47.5 + 10)
     r.spinLeftToAngle(50, -43) # in theory, 45?
@@ -411,4 +407,5 @@ def BASKETbocci():
     r.driveStraightCms(200, 26)
     # aadded 2 cms no test yet
     r.moveForTime(-50, 50, 500)
+    # raise the basket
     r.runTopMotors(300, 180)

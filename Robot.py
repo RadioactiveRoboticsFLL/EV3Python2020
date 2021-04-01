@@ -7,22 +7,47 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
 from pybricks.tools import wait, print
 import math
 
+# robot.py is where we keep our robot class
+# the robot class is where we keep functions 
+# to make the robot do simple actions.
+# it also holds important variables about the bot
+
 class Robot:
 
     def __init__(self):
+        '''
+        this is the construtor for our robot class. 
+        This function gets called when a robot object is made from the robot class.
+        '''
+        # This is wich motor or sensor is plugged into a certain port.
+        # 'The wiring'
         self.leftMotor = Motor(Port.B)
         self.rightMotor = Motor(Port.C)
         self.leftTopMotor = Motor(Port.A)
         self.rightTopMotor = Motor(Port.D)
+        self.gyro = GyroSensor(Port.S4)
+
+        # This sets the minimum speed
+        # These are for when it ramps the speed, it will stop at this speed, insted of stalling
         self.minSpeed = 60.
         self.minSpinSpeed = 30.
-        self.gyro = GyroSensor(Port.S4)
+
+    
+        self.rampDownRatio = 0.5
+        
+        # This is the radius of the wheels in cms
+        # This is so we can convert distance to wheel rotation(s)
         self.wheelRadiusCm = 4.0
+
+        # half of the distace between the wheels(in cms, obvously)
+        # We need this in order to convert from degrees we want to spin the bot
+        # to how far those wheels have to move.
         # could be 6, depending on how you measure it
         self.driveTrainRadiusCm = 5.65
+
+        # this is the gain we use when going straight with the gyro sensor
         # better then 0.7
         self.gyroGain = 5.0
-        self.rampDownRatio = 0.5
 
     def runTopMotors(self, speed, rotation_angle):
         "Turns on top motors in opposite directions for as many degrees as you tell it"

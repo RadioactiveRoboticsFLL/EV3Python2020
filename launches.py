@@ -9,6 +9,7 @@ from pybricks.parameters import (Port, Stop, Direction, Button, Color,
                                  SoundFile, ImageFile, Align)
 from pybricks.robotics import DriveBase
 
+# launches.py is where we keep functions to do missions
 
 # This launch gets the bot haning on the pull-up bar
 # -------------
@@ -393,3 +394,21 @@ def benchAll():
     # stop top motor
     r.rightTopMotor.run(0)
 
+# This is for mission 8
+# set up the bot w/ ye tri-angle jig
+def BASKETbocci():
+    r = Robot()
+    # when we used the big jig
+    # r.driveStraightCms(500, 47.5)
+    # r.spinLeftToAngle(50, -44)
+    # r.driveStraightCms(500, 32)
+
+    r.driveStraightCms(500, 47.5 + 10)
+    r.spinLeftToAngle(50, -43) # in theory, 45?
+    r.driveStraightCms(200, 8)
+    brick.sound.beep()
+    r.spinLeftToAngle(100, -90)
+    r.driveStraightCms(200, 26)
+    # aadded 2 cms no test yet
+    r.moveForTime(-50, 50, 500)
+    r.runTopMotors(300, 180)

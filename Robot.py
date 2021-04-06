@@ -109,7 +109,7 @@ class Robot:
         self.driveMotors(rightSpeed, leftSpeed, degrees, coast=coast)
 
 
-    def driveStraightCms(self, speed, cms):
+    def driveStraightCms(self, speed, cms, useGYRO = True):
         "drives straight with gyro sensor, however many cms you tell it"
         # resets both motor angles
         self.leftMotor.reset_angle(0)
@@ -125,7 +125,10 @@ class Robot:
             error = gyroAngle - intialGyroAngle
             # this is the correction to each motor to 
             # keep the robot going straight
-            correction = error * self.gyroGain
+            if useGYRO:
+                correction = error * self.gyroGain
+            else:
+                correction = 0
 
             # ramp down the speed as we get close to our destination!
             ratio = rotation_angle / degreesTarget

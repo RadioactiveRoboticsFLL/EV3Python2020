@@ -399,13 +399,18 @@ def benchAll():
 def BASKETbocci():
     r = Robot()
 
-    r.driveStraightCms(500, 47.5 + 10)
-    r.spinLeftToAngle(50, -43) # in theory, 45?
+    r.driveStraightCms(500, 43 + 10, useGYRO = False)
+    # TBF: this should not use the gyro so we can be consistent
+    # r.spinLeftToAngle(50, -39) # in theory, 45?
+    r.SpinLeftAngularDistance(100, 40)
     r.driveStraightCms(200, 8)
     brick.sound.beep()
-    r.spinLeftToAngle(100, -90)
-    r.driveStraightCms(200, 26)
-    # aadded 2 cms no test yet
-    r.moveForTime(-50, 50, 500)
+    # r.spinLeftToAngle(100, -90)
+    r.SpinLeftAngularDistance(100, 45)
+    r.driveForwardCms(200, 23.5)
+    # r.moveForTime(-50, 50, 500)
     # raise the basket
-    r.runTopMotors(300, 180)
+    r.runTopMotors(300, 200)
+    r.driveForwardCms(-1000, 20)
+    r.SpinRightAngularDistance(100, 75)
+    r.driveForwardCms(-1000, 60)

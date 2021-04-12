@@ -47,7 +47,7 @@ class Robot:
 
         # this is the gain we use when going straight with the gyro sensor
         # better then 0.7
-        self.gyroGain = 5.0
+        self.gyroGain = 2.5
 
     def runTopMotors(self, speed, rotation_angle):
         "Turns on top motors in opposite directions for as many degrees as you tell it"

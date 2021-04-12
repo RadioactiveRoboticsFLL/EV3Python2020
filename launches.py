@@ -22,11 +22,11 @@ def pullUpBar():
     r.spinRightToAngle(150, 87.5)
     # r.driveForwardCms(500, 106-11)
     # r.spinRight(250, 120)
-    wait(1000)
+    wait(500)
     #go backwards
     r.driveForwardCms(-200, 28)
     # pull up!
-    r.runTopMotors(-500, 9*360)
+    r.runTopMotors(-900, 9*360)
 
 def bocciBench():
     r = Robot()
@@ -160,12 +160,13 @@ def bocciOtherTable():
     # r.spinLeftToAngle(50, -44)
     # r.driveStraightCms(500, 32)
 
-    r.driveStraightCms(500, 47.5 + 10)
-    r.spinLeftToAngle(50, -43) # in theory, 45?
-    r.driveStraightCms(500, 32 - 1)
+    r.driveStraightCms(500, 56.5)
+    # r.spinLeftToAngle(50, -43) # in theory, 45?
+    r.SpinLeftAngularDistance(75, 43)
+    r.driveStraightCms(500, 32 - 1, useGYRO=False)
     brick.sound.beep()
     # now push against the wall so we know where we are
-    r.moveForTime(50, 50, 3000)
+    r.moveForTime(50, 50, 1500)
     # then back up just the right amount
     # r.driveForwardCms(-150, 5)
 
@@ -220,7 +221,7 @@ def blueTriangle():
     # r.driveStraightCms(450, 85)
     # hug the wall on the right
     power = 600
-    r.driveMotorsCms(power, power + 20, 81)
+    r.driveMotorsCms(power, power + 20, 79)
     # r.driveForwardCms(25, 19)
     # this should push for time, not distance,
     # and continue pushing against the wall too
@@ -400,17 +401,18 @@ def BASKETbocci():
     r = Robot()
 
     r.driveStraightCms(500, 43 + 10, useGYRO = False)
-    # TBF: this should not use the gyro so we can be consistent
     # r.spinLeftToAngle(50, -39) # in theory, 45?
-    r.SpinLeftAngularDistance(100, 40)
+    r.SpinLeftAngularDistance(100, 35)
     r.driveStraightCms(200, 8)
     brick.sound.beep()
     # r.spinLeftToAngle(100, -90)
     r.SpinLeftAngularDistance(100, 45)
-    r.driveForwardCms(200, 23.5)
-    # r.moveForTime(-50, 50, 500)
+    r.driveForwardCms(200, 21.5)
+    # 23.5 cm . . . . . . . ^
+    brick.sound.beep()
+    r.moveForTime(50, -50, 500)
     # raise the basket
-    r.runTopMotors(300, 200)
+    r.runTopMotors(300, 400)
     r.driveForwardCms(-1000, 20)
     r.SpinRightAngularDistance(100, 75)
     r.driveForwardCms(-1000, 60)

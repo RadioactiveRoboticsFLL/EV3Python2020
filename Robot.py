@@ -1,10 +1,44 @@
 # pybrick imports
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import (Port, Stop, Direction, Button, Color,
-                                 SoundFile, ImageFile, Align)
-from pybricks.tools import wait, print
+
+try:
+    from pybricks import ev3brick as brick
+    from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                    InfraredSensor, UltrasonicSensor, GyroSensor)
+    from pybricks.parameters import (Port, Stop, Direction, Button, Color,
+                                    SoundFile, ImageFile, Align)
+    from pybricks.tools import wait, print
+
+    portA = Port.A
+    portB = Port.B
+    portC = Port.C
+    portD = Port.D
+    port4 = Port.S4
+    stopBrake = Stop.BRAKE
+    stopCoast = Stop.COAST
+except:
+    print("Better to ask forgiveness then permission: ")
+    print("We are running in simulation mode") 
+    portA = "a"  
+    portB = "b"
+    portC = "c"
+    portD = "d"
+    port4 = "4"
+    stopBrake = "BRAKE"
+    stopCoast = "COAST"
+    class Motor:
+        def __init__(self, port):
+            pass
+        def run(self, power):
+            pass
+        def run_angle(self, power, degrees, brake, wait):
+            pass
+
+    class GyroSensor:
+
+        def __init__(self, port):
+            pass
+
+
 import math
 
 # robot.py is where we keep our robot class
@@ -20,12 +54,12 @@ class Robot:
         This function gets called when a robot object is made from the robot class.
         '''
         # This is wich motor or sensor is plugged into a certain port.
-        # 'The wiring'
-        self.leftMotor = Motor(Port.B)
-        self.rightMotor = Motor(Port.C)
-        self.leftTopMotor = Motor(Port.A)
-        self.rightTopMotor = Motor(Port.D)
-        self.gyro = GyroSensor(Port.S4)
+        # 'The wiring' 
+        self.leftMotor = Motor(portB)
+        self.rightMotor = Motor(portC)
+        self.leftTopMotor = Motor(portA)
+        self.rightTopMotor = Motor(portD)
+        self.gyro = GyroSensor(port4)
 
         # This sets the minimum speed
         # These are for when it ramps the speed, it will stop at this speed, insted of stalling
@@ -36,7 +70,8 @@ class Robot:
         self.rampDownRatio = 0.5
         
         # This is the radius of the wheels in cms
-        # This is so we can convert distance to wheel rotation(s)
+        # This is so we can convert distance to wheel rotation(s) or the 
+        # other way around
         self.wheelRadiusCm = 4.0
 
         # half of the distace between the wheels(in cms, obvously)
@@ -48,19 +83,25 @@ class Robot:
         # this is the gain we use when going straight with the gyro sensor
         # better then 0.7
         self.gyroGain = 2.5
+         
+        # Lets give our bot MEMORY!
+        self.distaceTraveledCms = 0
 
     def runTopMotors(self, speed, rotation_angle):
         "Turns on top motors in opposite directions for as many degrees as you tell it"
-        self.leftTopMotor.run_angle(-speed,rotation_angle,Stop.COAST,False)
-        self.rightTopMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
+        self.leftTopMotor.run_angle(-speed,rotation_angle,stopCoast,False)
+        self.rightTopMotor.run_angle(speed,rotation_angle,stopCoast,True)
 
     def driveForward(self, speed, rotation_angle):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
         # don't wait here, so that both motors can turn at the same time
-        self.leftMotor.run_angle(speed,rotation_angle,Stop.COAST,False)
+        self.leftMotor.run_angle(speed,rotation_angle,stopCoast,False)
         # but wait here!
-        self.rightMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
-    
+        self.rightMotor.run_angle(speed,rotation_angle,stopCoast,True)
+        # Update the memory
+        distanceCms = self.degrees2cms(rotation_angle)
+        self.distaceTraveledCms = self.distaceTraveledCms + distanceCms
+
     def driveMotors(self, rightSpeed, leftSpeed, rotation_angle, coast=True):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
         if coast:
@@ -95,6 +136,12 @@ class Robot:
         conversion = 360.0/circumfrence
         degrees = cms*conversion
         return degrees
+
+    def degrees2cms(self, degrees):
+        circumfrence = 2*3.14*self.wheelRadiusCm
+        conversion = circumfrence/360.0
+        cms = degrees * conversion
+        return cms
 
     def driveForwardCms(self, speed, cms):
         "drives foward how many centimeters you tell it"

@@ -1,5 +1,5 @@
 # pybrick imports
-
+import math
 try:
     from pybricks import ev3brick as brick
     from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
@@ -31,6 +31,8 @@ except:
         def run(self, power):
             pass
         def run_angle(self, power, degrees, brake, wait):
+            pass
+        def reset_angle(self, newAngle):
             pass
 
     class GyroSensor:
@@ -86,6 +88,27 @@ class Robot:
          
         # Lets give our bot MEMORY!
         self.distaceTraveledCms = 0
+        self.currentPosition = (0, 0)
+        self.currentRotation = 0
+        self.oldPositions = [self.currentPosition]
+
+    def updateMemory(self, distanceCms, rotation):
+        self.distaceTraveledCms = self.distaceTraveledCms + distanceCms
+        # update ANGLE!
+        self.currentRotation = self.currentRotation + rotation
+
+        # degres 2 radians
+        radians = self.currentRotation * ((2 * math.pi) / 360)
+        x = distanceCms * math.cos(radians)
+        y = distanceCms * math.sin(radians)
+
+        # now cclculate new current position
+        newX = self.currentPosition[0] + x
+        newY = self.currentPosition[1] + y
+        self.currentPosition = (newX, newY)
+        # Rember position
+        self.oldPositions.append(self.currentPosition)
+
 
     def runTopMotors(self, speed, rotation_angle):
         "Turns on top motors in opposite directions for as many degrees as you tell it"
@@ -100,14 +123,15 @@ class Robot:
         self.rightMotor.run_angle(speed,rotation_angle,stopCoast,True)
         # Update the memory
         distanceCms = self.degrees2cms(rotation_angle)
-        self.distaceTraveledCms = self.distaceTraveledCms + distanceCms
+        self.updateMemory(distanceCms, 0)
+
 
     def driveMotors(self, rightSpeed, leftSpeed, rotation_angle, coast=True):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
         if coast:
-            brake = Stop.COAST
+            brake = stopCoast
         else:
-            brake = Stop.BRAKE    
+            brake = stopBrake    
         self.leftMotor.reset_angle(0)
         self.rightMotor.reset_angle(0)
         # don't wait here, so that both motors can turn at the same time
@@ -277,9 +301,11 @@ class Robot:
         conversion = (2 * math.pi * self.driveTrainRadiusCm) / 360.0
         distance = angle * conversion
         self.driveMotorsCms(power, -power, distance, coast = False)
+        self.updateMemory(0, angle)
 
     def SpinRightAngularDistance(self, power, angle):
         #convert degrees to distance
         conversion = (2 * math.pi * self.driveTrainRadiusCm) / 360.0
         distance = angle * conversion
         self.driveMotorsCms(-power, power, distance, coast = False)
+        self.updateMemory(0, -angle)

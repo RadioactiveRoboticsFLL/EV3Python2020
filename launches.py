@@ -1,6 +1,8 @@
 
 
 from Robot import Robot
+
+# can we import our pygame stuff for drawings?
 try:
     from pyGame import runGame
     PYGAME = True
@@ -18,9 +20,11 @@ try:
     from pybricks.robotics import DriveBase
 
 except:
-    print('this is not a robot!')
-    
+    print('Import error: this is not a robot!')
 
+# launches.py is where we keep functions to do missions
+
+# this is a test for running on the compute, not the bot
 def simTest():
     obj = Robot()
     obj.currentPosition = (43, 8)
@@ -48,7 +52,6 @@ def simTest():
     if PYGAME:
         runGame(obj.oldPositions)
 
-# launches.py is where we keep functions to do missions
 
 # This launch gets the bot haning on the pull-up bar
 # -------------

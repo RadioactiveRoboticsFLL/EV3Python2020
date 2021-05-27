@@ -1,8 +1,6 @@
 import pygame
 
 def runGame(positions):
-    # fake bot position in table corradnds
-
 
 
     print("len:", len(positions))

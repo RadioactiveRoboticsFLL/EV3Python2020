@@ -1,13 +1,52 @@
 
-from pybricks import ev3brick as brick
-from pybricks.tools import wait, print
-from Robot import Robot
 
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import (Port, Stop, Direction, Button, Color,
-                                 SoundFile, ImageFile, Align)
-from pybricks.robotics import DriveBase
+from Robot import Robot
+try:
+    from pyGame import runGame
+    PYGAME = True
+except:
+    PYGAME = False
+
+try:
+    from pybricks import ev3brick as brick
+    from pybricks.tools import wait, print
+
+    from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                    InfraredSensor, UltrasonicSensor, GyroSensor)
+    from pybricks.parameters import (Port, Stop, Direction, Button, Color,
+                                    SoundFile, ImageFile, Align)
+    from pybricks.robotics import DriveBase
+
+except:
+    print('this is not a robot!')
+    
+
+def simTest():
+    obj = Robot()
+    obj.currentPosition = (43, 8)
+    obj.oldPositions.append((43, 8))
+    obj.currentRotation = 0
+    obj.driveStraightCms(1000, 10)
+    print("Your new robot has moved CMS: ", obj.distaceTraveledCms)
+    # obj.leftMotor.run(200)
+    # obj.runTopMotors(300, 90)
+    obj.driveForward(400, 120)
+    print("Now your robot has moved CMS: ", obj.distaceTraveledCms)
+    print("Our new position is: ")
+    # newX = obj.currentPosition[0] + obj.distaceTraveledCms
+    # newY = obj.currentPosition[1] + 0
+    # print(newX, newY)
+    print(obj.currentPosition)
+    obj.driveForward(500, 360)
+    print(obj.currentPosition)
+    obj.SpinLeftAngularDistance(600, 90)
+    obj.driveForward(500, 360)
+    print(obj.currentPosition)
+    print("ALL positions: ")
+    print(obj.oldPositions)
+
+    if PYGAME:
+        runGame(obj.oldPositions)
 
 # launches.py is where we keep functions to do missions
 
@@ -416,3 +455,10 @@ def BASKETbocci():
     r.driveForwardCms(-1000, 20)
     r.SpinRightAngularDistance(100, 75)
     r.driveForwardCms(-1000, 60)
+
+
+
+
+
+if __name__ == '__main__':
+    simTest()

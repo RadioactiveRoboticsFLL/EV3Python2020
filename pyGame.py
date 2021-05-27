@@ -1,14 +1,8 @@
 import pygame
 
-def runGame():
+def runGame(positions):
     # fake bot position in table corradnds
-    positions = [
-        (34, 10),
-        (34 + 101, 10)
-        # (0, 0),
-        # (100, 100),
-        # (500, 100)
-    ]
+
 
 
     print("len:", len(positions))
@@ -37,12 +31,15 @@ def runGame():
 
     # turn bot coords to screen corrds
     # cms -> pixels
-    # make x offset
     # switch y direction
     displayPositions = []
     for i in range(len(positions)):
         pos = positions[i]
-        newPos = (pos[0] / tableScreenRatio, pos[1] / tableScreenRatio)
+        # newPos = (pos[0] / tableScreenRatio, (pos[1] / tableScreenRatio))
+        newPosX = (pos[0] / tableScreenRatio)
+        newPosY = displayHeight - (pos[1] / tableScreenRatio)
+        newPos = (newPosX, newPosY)
+
         print("newPos", newPos)
         displayPositions.append(newPos)
 
@@ -80,4 +77,11 @@ def runGame():
 
 
 if __name__ == '__main__':
-    runGame()
+    positions = [
+        (34, 10),
+        (34 + 101, 10)
+        # (0, 0),
+        # (100, 100),
+        # (500, 100)
+    ]
+    runGame(positions)

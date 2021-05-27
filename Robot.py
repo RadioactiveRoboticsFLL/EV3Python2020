@@ -26,19 +26,44 @@ except:
     stopBrake = "BRAKE"
     stopCoast = "COAST"
     class Motor:
+        """
+        fakes pybrick motor class.
+        keeps track of angle and power!
+        """
         def __init__(self, port):
-            pass
+            self.power = 0
+            self.myAngle = 0
+            
         def run(self, power):
-            pass
+            self.power = power
+
         def run_angle(self, power, degrees, brake, wait):
-            pass
+            self.power = power
+
         def reset_angle(self, newAngle):
-            pass
+            self.myAngle = newAngle
+
+        def angle(self):
+            """
+            uses power t o keep track of angle!
+            angle increses proportional to POWER
+            """
+            if self.power == 0.:
+                return 0.
+            else:
+                self.myAngle = self.myAngle + (self.power / 100.0)
+                return self.myAngle  
+
+        def stop(self):
+            # reset POWER to 0
+            self.power = 0      
 
     class GyroSensor:
 
         def __init__(self, port):
             pass
+        def angle(self):
+            return 0
 
 
 import math
@@ -70,7 +95,7 @@ class Robot:
 
     
         self.rampDownRatio = 0.5
-        
+        self.rampUpRatio = 0.2
         # This is the radius of the wheels in cms
         # This is so we can convert distance to wheel rotation(s) or the 
         # other way around
@@ -90,7 +115,7 @@ class Robot:
         self.distaceTraveledCms = 0
         self.currentPosition = (0, 0)
         self.currentRotation = 0
-        self.oldPositions = [self.currentPosition]
+        self.oldPositions = []
 
     def updateMemory(self, distanceCms, rotation):
         self.distaceTraveledCms = self.distaceTraveledCms + distanceCms
@@ -191,6 +216,7 @@ class Robot:
         # TBF: get the robot to slow down as it
         # gets close to it's destination
         while rotation_angle < degreesTarget:
+            
             # get the latest value that the gyro sensor is reading
             gyroAngle = self.gyro.angle()
             error = gyroAngle - intialGyroAngle
@@ -203,24 +229,39 @@ class Robot:
 
             # ramp down the speed as we get close to our destination!
             ratio = rotation_angle / degreesTarget
-            if ratio < self.rampDownRatio:
+            # if ratio < self.rampDownRatio:
+            #     # go at a constant speed
+            #     rampSpeed = speed
+            # else:
+            #     # RAMP down speed!
+            #     scale = (1 - ratio) / (1 - self.rampDownRatio)
+            #     rampSpeed = speed * scale
+
+            if ratio > self.rampUpRatio and ratio < self.rampDownRatio:
                 # go at a constant speed
-                rampSpeed = speed
+               rampSpeed = speed
             else:
-                # RAMP down speed!
-                scale = (1 - ratio) / (1 - self.rampDownRatio)
-                rampSpeed = speed * scale
+                if ratio > self.rampDownRatio:
+                    # RAMP down speed!
+                    scale = (1 - ratio) / (1 - self.rampDownRatio)
+                    rampSpeed = speed * scale
+                else:
+                    # ramp UP!!!
+                    rampSpeed = speed * (ratio / self.rampUpRatio)
 
             # make sure we never slow down so much that the robot
             # can't make it's destination    
             rampSpeed = max(rampSpeed, self.minSpeed)
-            #print(rampSeed)
+            print(rampSpeed)
 
             self.rightMotor.run(rampSpeed + correction)
             self.leftMotor.run(rampSpeed - correction)
             rotation_angle = self.rightMotor.angle()
         self.rightMotor.stop()
         self.leftMotor.stop()
+
+        self.updateMemory(cms, 0)
+
 
     def spinRightToAngle(self, speed, targetAngle):
         "spins right until gyro reads the angle that you tell it"

@@ -15,6 +15,7 @@ try:
     port4 = Port.S4
     stopBrake = Stop.BRAKE
     stopCoast = Stop.COAST
+    SIM = False
 except:
     print("Better to ask forgiveness then permission: ")
     print("We are running in simulation mode") 
@@ -25,6 +26,7 @@ except:
     port4 = "4"
     stopBrake = "BRAKE"
     stopCoast = "COAST"
+    SIM = True
     class Motor:
         """
         fakes pybrick motor class.
@@ -54,7 +56,7 @@ except:
                 self.myAngle = self.myAngle + (self.power / 100.0)
                 return self.myAngle  
 
-        def stop(self):
+        def stop(self, stopType=None):
             # reset POWER to 0
             self.power = 0      
 
@@ -240,6 +242,7 @@ class Robot:
             if ratio > self.rampUpRatio and ratio < self.rampDownRatio:
                 # go at a constant speed
                rampSpeed = speed
+               
             else:
                 if ratio > self.rampDownRatio:
                     # RAMP down speed!
@@ -269,6 +272,9 @@ class Robot:
         # targetAngle = targetAngle + 1
         gyroAngle = self.gyro.angle()
         startingAngle = gyroAngle
+        # If not running on bot pretend that we are at the target angle
+        if SIM:
+            gyroAngle = targetAngle
         while gyroAngle < targetAngle:
             gyroAngle = self.gyro.angle()
             # this makes it so that you start going fast in your turn
@@ -281,10 +287,9 @@ class Robot:
             self.leftMotor.run(rampSpeed)
             print(scale)
             print(gyroAngle)
-        self.rightMotor.stop(Stop.BRAKE)
-        self.leftMotor.stop(Stop.BRAKE)
-        brick.display.text("last angle:")
-        brick.display.text(gyroAngle)
+        self.rightMotor.stop(stopBrake)
+        self.leftMotor.stop(stopBrake)
+        self.updateMemory(0, targetAngle)
         
     def spinLeftToAngle(self, speed, targetAngle):
         "spins left until gyro reads the angle that you tell it"
@@ -292,6 +297,9 @@ class Robot:
         # targetAngle = targetAngle - 1
         gyroAngle = self.gyro.angle()
         startingAngle = gyroAngle
+        # If not running on bot pretend that we are at the target angle
+        if SIM:
+            gyroAngle = targetAngle
         while gyroAngle > targetAngle:
             gyroAngle = self.gyro.angle()
             scale = (gyroAngle - startingAngle) / (targetAngle - startingAngle)
@@ -303,8 +311,7 @@ class Robot:
             print(gyroAngle)
         self.rightMotor.stop(Stop.BRAKE)
         self.leftMotor.stop(Stop.BRAKE)
-        brick.display.text("last angle:")
-        brick.display.text(gyroAngle)
+        self.updateMemory(0, targetAngle)
 
     def gyroDriftCheck(self):
         self.gyro.reset_angle(0)

@@ -20,7 +20,9 @@ try:
     from pybricks.robotics import DriveBase
 
 except:
-    print('Import error: this is not a robot!')
+    print('Import error: This is not a robot!')
+    def wait(msecs):
+        pass
 
 # launches.py is where we keep functions to do missions
 
@@ -59,8 +61,12 @@ def simTest():
 # jig attachment that is designed for pull-up bar
 def pullUpBar():
     r = Robot()
+    r.currentPosition = (55, 22)
+    r.oldPositions.append((55, 22))
+    r.currentRotation = 0
+    
     r.driveStraightCms(250, 106-21)
-    brick.sound.beep()
+    # brick.sound.beep()
     r.spinRightToAngle(150, 87.5)
     # r.driveForwardCms(500, 106-11)
     # r.spinRight(250, 120)
@@ -69,6 +75,8 @@ def pullUpBar():
     r.driveForwardCms(-200, 28)
     # pull up!
     r.runTopMotors(-900, 9*360)
+    if PYGAME:
+        runGame(r.oldPositions)
 
 def bocciBench():
     r = Robot()
@@ -499,5 +507,5 @@ def Slide():
 
 
 if __name__ == '__main__':
-    simTest()
+    pullUpBar()
 

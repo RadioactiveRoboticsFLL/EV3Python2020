@@ -162,8 +162,8 @@ def bocciOtherTable():
 
     r.driveStraightCms(500, 56.5)
     # r.spinLeftToAngle(50, -43) # in theory, 45?
-    r.SpinLeftAngularDistance(75, 43)
-    r.driveStraightCms(500, 32 - 1, useGYRO=False)
+    r.SpinLeftAngularDistance(50, 40)
+    r.driveStraightCms(200, 32 - 1, useGYRO=False)
     brick.sound.beep()
     # now push against the wall so we know where we are
     r.moveForTime(50, 50, 1500)
@@ -172,6 +172,9 @@ def bocciOtherTable():
 
     # knock the ball on the other table!!
     r.runTopMotors(500, 50)
+    # r.leftTopMotor.run_angle(-500, 200,Stop.COAST,True)
+    # r.rightTopMotor.run_angle(500, 200,Stop.COAST,True)
+
     # r.runTopMotors(-500, 50)
     #Go back home!!
     # r.driveForwardCms(-500, 40 )
@@ -225,7 +228,7 @@ def blueTriangle():
     # r.driveForwardCms(25, 19)
     # this should push for time, not distance,
     # and continue pushing against the wall too
-    r.moveForTime(25, 27, 10000)
+    r.moveForTime(25, 27, 10500)
     # r.driveForwardCms(-500, 120)
     # r.driveForwardCms(-100, 7)
     # r.spinLeftToAngle(100, -90)
@@ -372,10 +375,10 @@ def basketLift():
 def benchAll():
     r = Robot()
     # keep pushing the arm down so attachment does NOT move
-    # r.rightTopMotor.run(-100) dos'nt work :-( 
+    # r.rightTopMotor.run(-100) dos'nt* work :-( *SP 
     r.driveStraightCms(150, 35)
     brick.sound.beep()
-    r.spinRightToAngle(150, 5)
+    r.spinRightToAngle(100, 4.5)
     # r.SpinRightAngularDistance(150, 7)
     brick.sound.beep()
     r.moveForTime(100, 100, 1000)
@@ -416,3 +419,35 @@ def BASKETbocci():
     r.driveForwardCms(-1000, 20)
     r.SpinRightAngularDistance(100, 75)
     r.driveForwardCms(-1000, 60)
+
+# this goes from launch straight to dance floor
+# and dances there
+def dance():
+    r = Robot()
+    r.driveStraightCms(500, 95)
+    r.SpinLeftAngularDistance(100, 90)
+    r.driveForwardCms(200, 7)
+    while True:
+        r.SpinRightAngularDistance(500, 45)
+        brick.sound.beep()
+        r.SpinLeftAngularDistance(500, 45)
+
+def Slide():
+    r = Robot()
+    r.rightTopMotor.run(100)
+    r.leftTopMotor.run(-100)
+    wait(1000)
+    # milliseconds
+    r.driveForwardCms(200, 37)
+    # was 500 speed
+    r.rightTopMotor.stop()
+    r.leftTopMotor.stop()
+    wait(2000)
+    # milliseconds
+    r.driveForwardCms(-500, 30)
+    r.rightTopMotor.run(-50)
+    r.leftTopMotor.run(50) #wAS 1
+    r.spinRight(50, 45)#MAX CHANGED
+    r.driveForwardCms(-500, 70)
+    r.rightTopMotor.stop()
+    r.leftTopMotor.stop()

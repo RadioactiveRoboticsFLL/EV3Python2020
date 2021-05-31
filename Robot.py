@@ -1,10 +1,71 @@
 # pybrick imports
-from pybricks import ev3brick as brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import (Port, Stop, Direction, Button, Color,
-                                 SoundFile, ImageFile, Align)
-from pybricks.tools import wait, print
+import math
+try:
+    from pybricks import ev3brick as brick
+    from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
+                                    InfraredSensor, UltrasonicSensor, GyroSensor)
+    from pybricks.parameters import (Port, Stop, Direction, Button, Color,
+                                    SoundFile, ImageFile, Align)
+    from pybricks.tools import wait, print
+
+    portA = Port.A
+    portB = Port.B
+    portC = Port.C
+    portD = Port.D
+    port4 = Port.S4
+    stopBrake = Stop.BRAKE
+    stopCoast = Stop.COAST
+except:
+    print("Better to ask forgiveness then permission: ")
+    print("We are running in simulation mode") 
+    portA = "a"  
+    portB = "b"
+    portC = "c"
+    portD = "d"
+    port4 = "4"
+    stopBrake = "BRAKE"
+    stopCoast = "COAST"
+    class Motor:
+        """
+        fakes pybrick motor class.
+        keeps track of angle and power!
+        """
+        def __init__(self, port):
+            self.power = 0
+            self.myAngle = 0
+            
+        def run(self, power):
+            self.power = power
+
+        def run_angle(self, power, degrees, brake, wait):
+            self.power = power
+
+        def reset_angle(self, newAngle):
+            self.myAngle = newAngle
+
+        def angle(self):
+            """
+            uses power t o keep track of angle!
+            angle increses proportional to POWER
+            """
+            if self.power == 0.:
+                return 0.
+            else:
+                self.myAngle = self.myAngle + (self.power / 100.0)
+                return self.myAngle  
+
+        def stop(self):
+            # reset POWER to 0
+            self.power = 0      
+
+    class GyroSensor:
+
+        def __init__(self, port):
+            pass
+        def angle(self):
+            return 0
+
+
 import math
 
 # robot.py is where we keep our robot class
@@ -20,12 +81,12 @@ class Robot:
         This function gets called when a robot object is made from the robot class.
         '''
         # This is wich motor or sensor is plugged into a certain port.
-        # 'The wiring'
-        self.leftMotor = Motor(Port.B)
-        self.rightMotor = Motor(Port.C)
-        self.leftTopMotor = Motor(Port.A)
-        self.rightTopMotor = Motor(Port.D)
-        self.gyro = GyroSensor(Port.S4)
+        # 'The wiring' 
+        self.leftMotor = Motor(portB)
+        self.rightMotor = Motor(portC)
+        self.leftTopMotor = Motor(portA)
+        self.rightTopMotor = Motor(portD)
+        self.gyro = GyroSensor(port4)
 
         # This sets the minimum speed
         # These are for when it ramps the speed, it will stop at this speed, insted of stalling
@@ -34,9 +95,10 @@ class Robot:
 
     
         self.rampDownRatio = 0.5
-        
+        self.rampUpRatio = 0.2
         # This is the radius of the wheels in cms
-        # This is so we can convert distance to wheel rotation(s)
+        # This is so we can convert distance to wheel rotation(s) or the 
+        # other way around
         self.wheelRadiusCm = 4.0
 
         # half of the distace between the wheels(in cms, obvously)
@@ -48,25 +110,53 @@ class Robot:
         # this is the gain we use when going straight with the gyro sensor
         # better then 0.7
         self.gyroGain = 2.5
+         
+        # Lets give our bot MEMORY!
+        self.distaceTraveledCms = 0
+        self.currentPosition = (0, 0)
+        self.currentRotation = 0
+        self.oldPositions = []
+
+    def updateMemory(self, distanceCms, rotation):
+        self.distaceTraveledCms = self.distaceTraveledCms + distanceCms
+        # update ANGLE!
+        self.currentRotation = self.currentRotation + rotation
+
+        # degres 2 radians
+        radians = self.currentRotation * ((2 * math.pi) / 360)
+        x = distanceCms * math.cos(radians)
+        y = distanceCms * math.sin(radians)
+
+        # now cclculate new current position
+        newX = self.currentPosition[0] + x
+        newY = self.currentPosition[1] + y
+        self.currentPosition = (newX, newY)
+        # Rember position
+        self.oldPositions.append(self.currentPosition)
+
 
     def runTopMotors(self, speed, rotation_angle):
         "Turns on top motors in opposite directions for as many degrees as you tell it"
-        self.leftTopMotor.run_angle(-speed,rotation_angle,Stop.COAST,False)
-        self.rightTopMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
+        self.leftTopMotor.run_angle(-speed,rotation_angle,stopCoast,False)
+        self.rightTopMotor.run_angle(speed,rotation_angle,stopCoast,True)
 
     def driveForward(self, speed, rotation_angle):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
         # don't wait here, so that both motors can turn at the same time
-        self.leftMotor.run_angle(speed,rotation_angle,Stop.COAST,False)
+        self.leftMotor.run_angle(speed,rotation_angle,stopCoast,False)
         # but wait here!
-        self.rightMotor.run_angle(speed,rotation_angle,Stop.COAST,True)
-    
+        self.rightMotor.run_angle(speed,rotation_angle,stopCoast,True)
+        # Update the memory
+        distanceCms = self.degrees2cms(rotation_angle)
+        self.updateMemory(distanceCms, 0)
+
+
     def driveMotors(self, rightSpeed, leftSpeed, rotation_angle, coast=True):
         "Turns on bottom motors in same direction to dirve foward for degrees you tell it"
         if coast:
-            brake = Stop.COAST
+            brake = stopCoast
         else:
-            brake = Stop.BRAKE    
+            brake = stopBrake    
         self.leftMotor.reset_angle(0)
         self.rightMotor.reset_angle(0)
         # don't wait here, so that both motors can turn at the same time
@@ -96,6 +186,12 @@ class Robot:
         degrees = cms*conversion
         return degrees
 
+    def degrees2cms(self, degrees):
+        circumfrence = 2*3.14*self.wheelRadiusCm
+        conversion = circumfrence/360.0
+        cms = degrees * conversion
+        return cms
+
     def driveForwardCms(self, speed, cms):
         "drives foward how many centimeters you tell it"
         #convert cm to degrees
@@ -120,6 +216,7 @@ class Robot:
         # TBF: get the robot to slow down as it
         # gets close to it's destination
         while rotation_angle < degreesTarget:
+            
             # get the latest value that the gyro sensor is reading
             gyroAngle = self.gyro.angle()
             error = gyroAngle - intialGyroAngle
@@ -132,24 +229,39 @@ class Robot:
 
             # ramp down the speed as we get close to our destination!
             ratio = rotation_angle / degreesTarget
-            if ratio < self.rampDownRatio:
+            # if ratio < self.rampDownRatio:
+            #     # go at a constant speed
+            #     rampSpeed = speed
+            # else:
+            #     # RAMP down speed!
+            #     scale = (1 - ratio) / (1 - self.rampDownRatio)
+            #     rampSpeed = speed * scale
+
+            if ratio > self.rampUpRatio and ratio < self.rampDownRatio:
                 # go at a constant speed
-                rampSpeed = speed
+               rampSpeed = speed
             else:
-                # RAMP down speed!
-                scale = (1 - ratio) / (1 - self.rampDownRatio)
-                rampSpeed = speed * scale
+                if ratio > self.rampDownRatio:
+                    # RAMP down speed!
+                    scale = (1 - ratio) / (1 - self.rampDownRatio)
+                    rampSpeed = speed * scale
+                else:
+                    # ramp UP!!!
+                    rampSpeed = speed * (ratio / self.rampUpRatio)
 
             # make sure we never slow down so much that the robot
             # can't make it's destination    
             rampSpeed = max(rampSpeed, self.minSpeed)
-            #print(rampSeed)
+            print(rampSpeed)
 
             self.rightMotor.run(rampSpeed + correction)
             self.leftMotor.run(rampSpeed - correction)
             rotation_angle = self.rightMotor.angle()
         self.rightMotor.stop()
         self.leftMotor.stop()
+
+        self.updateMemory(cms, 0)
+
 
     def spinRightToAngle(self, speed, targetAngle):
         "spins right until gyro reads the angle that you tell it"
@@ -230,9 +342,11 @@ class Robot:
         conversion = (2 * math.pi * self.driveTrainRadiusCm) / 360.0
         distance = angle * conversion
         self.driveMotorsCms(power, -power, distance, coast = False)
+        self.updateMemory(0, angle)
 
     def SpinRightAngularDistance(self, power, angle):
         #convert degrees to distance
         conversion = (2 * math.pi * self.driveTrainRadiusCm) / 360.0
         distance = angle * conversion
         self.driveMotorsCms(-power, power, distance, coast = False)
+        self.updateMemory(0, -angle)

@@ -132,13 +132,19 @@ In conclusion, a higher gain is better because it corrects faster.  But using to
 
 ### Ramping the Speed
 
+The robot jerks when it sarts and stops. This causes navagational errors. We fixed this by rampping the speed. You can look at the graphs below to see the speed values in driveStraightCms.
 
 <img src="./data/speedRampDownBug.png" alt="data/speedRampDownBug.png" width="500">
 
 <img src="./data/speedRampDownFixed.png" alt="data/speedRampDownFixed.png" width="500">
-   
 
-### Simulations - Running the cod without the robot
+   This last graph was made with a sinulator! (See below) 
+
+<img src="./data/BotSpeedRampingUpDown.png" alt="data/BotSpeedRampingUpDown.png" width="500">
+
+These curves should be straight if we were graphing time, but we are graphing number of readings. We get more printouts at lower speeds than higher speeds.
+
+### Simulations - Running the code without the robot
 
 This idea was given to us from the Software Engineers at the Green Bank Observatory.
 The motavation was that we could test things without running things on the bot.

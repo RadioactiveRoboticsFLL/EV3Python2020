@@ -1,16 +1,16 @@
+# this draws the mat and line of the were the robot went
+
 import pygame
 
+
 def runGame(positions):
+    '''
+    this takes positons from the robots's memory to draw lines on a
+    picture of the mat on the screen 
+    '''
 
 
-    print("len:", len(positions))
-    print("range: ", range(3))
-    for i in range(len(positions)-1):
-        print(i)
-        print(positions[i])
-        print("draw from position i to position i + 1")
-        print(positions[i], positions[i+1])
-
+    # these are the width and hieht of the mat and table in cms
     tableWidth = 236
     tableHeight = 114
     matWidth = 202
@@ -18,9 +18,11 @@ def runGame(positions):
     tableRatio = tableWidth / tableHeight
     matRatio = matWidth / tableHeight
 
+    # this tells it how big to make the piture in pixels
     displayWidth = 1500
     displayHeight = int(displayWidth * (1 / tableRatio))
 
+    # this converts cms to pixels
     tableScreenRatio = tableWidth / displayWidth
     matStartPixels = int(matStartCms * (1 / tableScreenRatio))
     matDisplayHeight = int(displayHeight)
@@ -46,6 +48,7 @@ def runGame(positions):
     black = (0,0,0)
     white = (255,255,255)
 
+    # this makes the window to show the picture, and it makes it the size we set earlyer 
     gameDisplay = pygame.display.set_mode((displayWidth,displayHeight))
     pygame.display.set_caption('EV3 python simulation')
 
@@ -64,12 +67,14 @@ def runGame(positions):
                 running = False
                 
         # Display mat
+        # this is were we make the background a color and draws a Picture 
         gameDisplay.fill(white)
         gameDisplay.blit(matImg, (matStartPixels, 0))
 
         # display positions:
         for i in range(len(displayPositions)-1):
             pygame.draw.line(gameDisplay, black, displayPositions[i], displayPositions[i+1])
+            
         pygame.display.update()
 
 

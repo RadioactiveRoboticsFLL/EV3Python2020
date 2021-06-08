@@ -22,6 +22,8 @@ def runGame(positions):
     displayWidth = 1500
     displayHeight = int(displayWidth * (1 / tableRatio))
 
+    lineWidth = 10 #pixels
+
     # this converts cms to pixels
     tableScreenRatio = tableWidth / displayWidth
     matStartPixels = int(matStartCms * (1 / tableScreenRatio))
@@ -47,6 +49,7 @@ def runGame(positions):
      # colors
     black = (0,0,0)
     white = (255,255,255)
+    darkRed = (200, 0, 0)
 
     # this makes the window to show the picture, and it makes it the size we set earlyer 
     gameDisplay = pygame.display.set_mode((displayWidth,displayHeight))
@@ -73,7 +76,7 @@ def runGame(positions):
 
         # display positions:
         for i in range(len(displayPositions)-1):
-            pygame.draw.line(gameDisplay, black, displayPositions[i], displayPositions[i+1])
+            pygame.draw.line(gameDisplay, darkRed, displayPositions[i], displayPositions[i+1], width=lineWidth)
             
         pygame.display.update()
 

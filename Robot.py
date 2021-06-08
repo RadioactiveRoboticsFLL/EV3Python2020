@@ -97,7 +97,7 @@ class Robot:
 
     
         self.rampDownRatio = 0.5
-        self.rampUpRatio = 0.2
+        self.rampUpRatio = 0.1
         # This is the radius of the wheels in cms
         # This is so we can convert distance to wheel rotation(s) or the 
         # other way around
@@ -207,7 +207,7 @@ class Robot:
         self.driveMotors(rightSpeed, leftSpeed, degrees, coast=coast)
 
 
-    def driveStraightCms(self, speed, cms, useGYRO = True):
+    def driveStraightCms(self, speed, cms, useGYRO = True, rampUp = False):
         "drives straight with gyro sensor, however many cms you tell it"
         # resets both motor angles
         self.leftMotor.reset_angle(0)
@@ -250,7 +250,10 @@ class Robot:
                     rampSpeed = speed * scale
                 else:
                     # ramp UP!!!
-                    rampSpeed = speed * (ratio / self.rampUpRatio)
+                    if rampUp == True:
+                        rampSpeed = speed * (ratio / self.rampUpRatio)
+                    else:
+                        rampSpeed = speed
 
             # make sure we never slow down so much that the robot
             # can't make it's destination    

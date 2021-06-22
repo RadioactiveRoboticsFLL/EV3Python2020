@@ -146,14 +146,16 @@ These curves should be straight if we were graphing time, but we are graphing nu
 
 ### Simulations - Running the code without the robot
 
+What is the simulator? The simulator is part of the code that fakes classes on the robot so it can be run on the computer. The simulator also draws a picture of the a trace of the robot's path on an accurate scale modle of the board.
+
 This idea was given to us from the Software Engineers at the Green Bank Observatory.
 The motavation was that we could test things without running things on the bot.
 
-The first time we ran the robot code on the computer, we got an import error because it didn’t have the EV3 library. The coach thought that putting the EV3 library on the computer would cause more problems then it would solve. We got past the import errors by faking the imports.  We use try/except bocks for our imports of the EV3 library. If there is an excpetion it means we are on the computer, and can't import the EV3 library. This is where we fake the classes need from the EV3 library.
+The first time we ran the robot code on the computer, we got an import error because it didn’t have the EV3 library. The coach thought that putting the EV3 library on the computer would cause more problems then it would solve. We got past the import errors by faking the imports.  We use try/except bocks for our imports of the EV3 library. If there is an excpetion it means we are on the computer, and can't import the EV3 library. This is where we fake the classes we need from the EV3 library.
 
-By faking, we mean we create new classes with the same names and the same functions as the ones from the EV3 library, but the classes don't do much. Currently we have faked two classes, the Motor class and Gyro sensor class.  We are also faking constants like the ports.
+By faking, we mean we create new classes with the same names and the same functions as the ones from the EV3 library, but the classes are a lot simpler. Currently we have faked two classes, the Motor class and Gyro sensor class.  We are also faking constants like the ports.
 
-We give our robot a memory so that it knows where it is and has been and then uses that information to draw a line of it's path on a picture of the board! We use the pygame library to draw the picture of the board and where the robots been on the screen. 
+We give our robot a memory so that it knows where it is and has been and then uses that information to draw a line of it's path on an accurate scaled picture of the board! We use the pygame library to draw the picture of the board and where the robot's been on the screen. 
 
 Below is a picture of the pullUpBar launch, simulate (run on the computer). The same code that completes this mission on the board is the same code that drew this picture!  The robot is hard to see, but it starts in the launch, moves to below the pullup bar, turns, and goes below pullup bar.  We plan on making these lines bigger in the future.
 

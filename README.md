@@ -45,7 +45,7 @@ We organized our code through different files:
 
 Here are some lines and boxes to help visualize the code.  The lines show the heirarchy of the code where each box represents a file.
 
-<img src="./data/ev3PythonCodeOrg.png" width="500">   
+<img src="./data/SoftwareBoxes.png" width="500">   
 
 ## Design Process
 
